@@ -1,0 +1,28 @@
+div {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.titulo{
+display: grid;
+align-items: center;
+justify-content: center;
+}
+h1{
+  background-color: rgb(56, 54, 54);
+  color: whitesmoke;
+  border-radius: 20px;
+  padding: 20px;
+}
+.caja{
+ display: flex;
+ align-items: center;
+ position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.carrito{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: flex-end; /* Alinea el contenido a la derecha */
+  align-items: center; /* Centra verticalmente el contenido */
+}
