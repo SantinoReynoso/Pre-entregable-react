@@ -18,8 +18,8 @@ function App() {
    </div>
 
    ---------------------------------------
-   <NavBar />
    <header>
+   <NavBar />
     </header>
     </div>
     
