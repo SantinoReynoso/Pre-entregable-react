@@ -3,23 +3,34 @@ div {
   flex-direction: column;
   height: 100vh;
 }
-.titulo{
-display: grid;
-align-items: center;
-justify-content: center;
+
+.titulo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh; /* Ajusta la altura como desees */
 }
-h1{
+
+h1 {
   background-color: rgb(56, 54, 54);
   color: whitesmoke;
   border-radius: 20px;
   padding: 20px;
+  font-size: 3rem; /* Ajusta el tamaño de fuente como desees */
+  text-align: center; /* Centra el texto horizontalmente */
 }
-.caja{
- display: flex;
- align-items: center;
- position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+
+
+.caja {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.carrito{
+
+.carrito {
   width: 40px;
   height: 40px;
   display: flex;
