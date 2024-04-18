@@ -1,39 +1,57 @@
-div {
+/* Estilo base */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+}
+
+/* Contenedor principal */
+.container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  align-items: center; /* Centra horizontalmente */
 }
 
-.titulo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 50vh; /* Ajusta la altura como desees */
-}
-
+/* Estilos para el título */
 h1 {
-  background-color: rgb(56, 54, 54);
-  color: whitesmoke;
-  border-radius: 20px;
-  padding: 20px;
-  font-size: 3rem; /* Ajusta el tamaño de fuente como desees */
-  text-align: center; /* Centra el texto horizontalmente */
+  background-color: #333; /* Color de fondo oscuro */
+  color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  font-size: 2.5rem; /* Reducido el tamaño de fuente */
+  text-align: center;
+  margin-bottom: 50px; /* Espacio entre el título y el navbar */;
+}
+
+/* Estilos para el navbar */
+nav {
+  background-color: #000; /* Fondo negro */
+  color: #fff; /* Color de texto blanco */
 }
 
 
-.caja {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* Estilos para las migas de pan */
+.Breadcrumb {
+  display: flex; /* Alinea horizontalmente los elementos */
+  list-style-type: none; /* Elimina los marcadores de lista */
+  margin: 0;
+  padding: 0;
 }
 
-.carrito {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: flex-end; /* Alinea el contenido a la derecha */
-  align-items: center; /* Centra verticalmente el contenido */
+.BreadcrumbItem {
+  margin-right: 10px; /* Espacio entre elementos */
+}
+
+.BreadcrumbLink {
+  color: #fff; /* Color del texto */
+  text-decoration: none; /* Elimina el subrayado predeterminado */
+  font-weight: bold; /* Texto en negrita */
+}
+
+/* Estilos de hover */
+.BreadcrumbLink:hover {
+  text-decoration: underline; /* Subrayado al pasar el mouse */
 }
