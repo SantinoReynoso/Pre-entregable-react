@@ -1,6 +1,5 @@
-// App.jsx
-import React from 'react';
-import { ChakraProvider, Box, Container, Heading, Flex, IconButton, Badge, SimpleGrid, Button } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { ChakraProvider, Box, Container, Heading, Flex, IconButton, Badge } from '@chakra-ui/react';
 import { FaShoppingCart } from 'react-icons/fa';
 import NavBar from './components/NavBar/NavBar';
 import ProductList from './components/products/products';
@@ -21,9 +20,14 @@ const App = () => {
     { id: 11, name: 'Aceite de oliva virgen extra', price: '$8' },
   ];
 
+  // Estado para almacenar los productos en el carrito
+  const [cart, setCart] = useState([]);
+
+  // Función para manejar la adición de un producto al carrito
   const handleAddToCart = (product) => {
-    // Aquí puedes implementar la lógica para agregar el producto al carrito
-    console.log(`Producto agregado al carrito: ${product.name}`);
+    const updatedCart = [...cart];
+    updatedCart.push(product);
+    setCart(updatedCart);
   };
 
   return (
@@ -45,11 +49,11 @@ const App = () => {
             <IconButton icon={<FaShoppingCart />} colorScheme="blue" variant="outline" aria-label="Carrito de compras" />
             {/* Hardcodeado del número de productos en el carrito */}
             <Badge colorScheme="red" borderRadius="full" px="2" ml="2">
-              10
+              {cart.length}
             </Badge>
           </Flex>
-            {/* Sección de productos */}
-            <section>
+          {/* Sección de productos */}
+          <section>
             <Box bg="#fff" py="8" borderRadius="xl" boxShadow="md" mb="8">
               {/* Título de la sección de productos */}
               <Heading as="h2" size="xl" color="#333" mb="4" textAlign="center">
@@ -75,3 +79,4 @@ const App = () => {
 };
 
 export default App;
+

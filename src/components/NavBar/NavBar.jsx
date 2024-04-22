@@ -1,24 +1,30 @@
 import React from 'react';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from '@chakra-ui/react';
+import { Flex, Box, Text, Spacer } from '@chakra-ui/react';
 
 const NavBar = () => {
     return (
-        <>
-            <nav>
-                <Breadcrumb fontWeight='medium' fontSize='sm' separator={<BreadcrumbSeparator>/</BreadcrumbSeparator>}>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href='#'>Home</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href='#'>Nosotros</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href='#'>contacto</BreadcrumbLink>
-                    </BreadcrumbItem>
-                </Breadcrumb>
-            </nav>
-        </>
+        <Flex
+            as="nav"
+            align="center"
+            justify="space-between"
+            wrap="wrap"
+            padding="1.5rem"
+            bg="gray.800"
+            color="white"
+        >
+            <Box>
+                <Text fontSize="lg" fontWeight="bold">Home</Text>
+            </Box>
+            <Spacer />
+            <Box>
+                <Text fontSize="lg" fontWeight="bold">Nosotros</Text>
+            </Box>
+            <Spacer />
+            <Box>
+                <Text fontSize="lg" fontWeight="bold">Productos</Text>
+            </Box>
+        </Flex>
     );
-}
+};
 
 export default NavBar;
