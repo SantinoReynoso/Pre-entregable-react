@@ -1,22 +1,27 @@
-import { useState } from 'react';
-import { HamburgerIcon } from '@chakra-ui/icons';
-import NavBar from "../NavBar/NavBar";
+import React from 'react';
+import { IconButton, Badge, Flex } from '@chakra-ui/react';
+import { FaShoppingCart } from 'react-icons/fa';
+import { px } from 'framer-motion';
 
-const CardWidget = () => {
-    const [navbarVisible, setNavbarVisible] = useState(false);
+const CartWidget = ({}) => {
+  return (
+    <Flex align="center">
+      {/* Icono del carrito de compras */}
+      <IconButton
+        icon={<FaShoppingCart />}
+        color="white" 
+        variant="link" // Variante de enlace
+        aria-label="Carrito de compras"
+        isDisabled
+        size="lg" 
+      />
 
-    const toggleNavbar = () => {
-        setNavbarVisible(!navbarVisible);
-    }
+      {/* Número harcodeado simulando la cantidad de elementos en el carrito */}
+      <Badge colorScheme="red" borderRadius="full" px="2" ml="2">
+        0
+      </Badge>
+    </Flex>
+  );
+};
 
-    return( 
-        <div>
-            <div className="carrito" onClick={toggleNavbar}>
-                <HamburgerIcon boxSize={20} color="currentColor" />
-            </div>
-            {navbarVisible && <NavBar />} {/* Renderiza el NavBar solo si navbarVisible es true */}
-        </div>
-    )
-}
-
-export default CardWidget;
+export default CartWidget;
