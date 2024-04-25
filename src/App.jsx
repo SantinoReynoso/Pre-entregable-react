@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { ChakraProvider, Box, Container, Heading, Flex } from '@chakra-ui/react';
 import { FaShoppingCart } from 'react-icons/fa';
-import ProductList from './components/ui/products';
+import ProductList from './components/ui/productsList';
 import CartWidget from './components/CardWidget/CartWidget';
 import NavBar from './components/NavBar/NavBar';
+import FiltroProductos from './components/ui/filtroProductos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Datos de los productos
@@ -12,130 +13,76 @@ const productsData = [
     "id": 1,
     "name": "Aceite de coco orgánico",
     "price": "$10",
-    "image": "url/a1.jpg"
+    "image": "/foto.jpg" // Ruta relativa a la carpeta `public`
   },
   {
     "id": 2,
     "name": "Quinoa integral",
     "price": "$20",
-    "image": "url/a2.jpg"
+    "image": "/foto.jpg" // Ruta relativa a la carpeta `public`
   },
   {
     "id": 3,
     "name": "Semillas de chía",
     "price": "$8",
-    "image": "url/a3.jpg"
+    "image": "/foto.jpg" // Ruta relativa a la carpeta `public`
   },
   {
     "id": 4,
     "name": "Frutos secos surtidos",
     "price": "$15",
-    "image": "url/a4.jpg"
+    "image": "/foto.jpg" // Ruta relativa a la carpeta `public`
   },
   {
     "id": 5,
     "name": "Harina de almendras",
     "price": "$12",
-    "image": "url/a5.jpg"
+    "image": "/foto.jpg" // Ruta relativa a la carpeta `public`
   },
   {
     "id": 6,
     "name": "Miel de abeja pura",
     "price": "$18",
-    "image": "url/a6.jpg"
+    "image": "/foto.jpg" // Ruta relativa a la carpeta `public`
   },
   {
     "id": 7,
     "name": "Cúrcuma en polvo",
     "price": "$7",
-    "image": "url/a7.jpg"
+    "image": "/foto.jpg" // Ruta relativa a la carpeta `public`
   },
   {
     "id": 8,
     "name": "Proteína de suero de leche",
     "price": "$25",
-    "image": "url/a8.jpg"
+    "image": "/foto.jpg" // Ruta relativa a la carpeta `public`
   },
   {
     "id": 9,
     "name": "Suplemento de omega-3",
     "price": "$30",
-    "image": "url/a9.jpg"
+    "image": "/foto.jpg" // Ruta relativa a la carpeta `public`
   },
   {
     "id": 10,
     "name": "Vinagre de manzana orgánico",
     "price": "$5",
-    "image": "url/a10.jpg"
+    "image": "/foto.jpg" // Ruta relativa a la carpeta `public`
   },
   {
     "id": 11,
     "name": "Aceite de oliva virgen extra",
     "price": "$8",
-    "image": "url/a11.jpg"
+    "image": "/foto.jpg" // Ruta relativa a la carpeta `public`
   },
-  // Agrega el resto de los productos aquí
   {
     "id": 12,
     "name": "Arroz integral",
     "price": "$6",
-    "image": "url/a12.jpg"
-  },
-  {
-    "id": 13,
-    "name": "Aguacates orgánicos",
-    "price": "$3",
-    "image": "url/a13.jpg"
-  },
-  {
-    "id": 14,
-    "name": "Leche de almendras",
-    "price": "$4",
-    "image": "url/a14.jpg"
-  },
-  {
-    "id": 15,
-    "name": "Pasta de trigo integral",
-    "price": "$2",
-    "image": "url/a15.jpg"
-  },
-  {
-    "id": 16,
-    "name": "Yogur griego natural",
-    "price": "$4",
-    "image": "url/a16.jpg"
-  },
-  {
-    "id": 17,
-    "name": "Bayas mixtas congeladas",
-    "price": "$8",
-    "image": "url/a17.jpg"
-  },
-  {
-    "id": 18,
-    "name": "Pan integral",
-    "price": "$3",
-    "image": "url/a18.jpg"
-  },
-  {
-    "id": 19,
-    "name": "Mantequilla de maní natural",
-    "price": "$5",
-    "image": "url/a19.jpg"
-  },
-  {
-    "id": 20,
-    "name": "Espinacas frescas",
-    "price": "$2",
-    "image": "url/a20.jpg"
-  },
-  {
-    "id": 21,
-    "name": "Huevos orgánicos",
-    "price": "$4",
-    "image": "url/a21.jpg"
+    "image": "/foto.jpg" // Ruta relativa a la carpeta `public`
   }
 ];
+
 
 const App = () => {
   // Estado para almacenar el carrito de compras
@@ -150,7 +97,7 @@ const App = () => {
   return (
     <ChakraProvider>
       {/* Contenedor principal */}
-      <Box bg="#333" minHeight="100vh" height="100%">
+      <Box bg="#AF8260" minHeight="100vh" height="100%">
         <Container maxW="container.xl" py="8">
           {/* Encabezado */}
           <Flex direction="row">
@@ -163,15 +110,15 @@ const App = () => {
             </Flex>
           </Flex>
           {/* Título principal */}
-          <Box mb="8">
-            <Heading as="h1" size="2xl" color="#fff" textAlign="center" letterSpacing="wide">
-              Mi Tienda
+          <Box mb="100">
+            <Heading as="h1" size="3" color="#322C2B" textAlign="center" letterSpacing="wide">
+              La Lenteja online
             </Heading>
           </Box>
           {/* Sección de productos */}
           <section>
-            <Box bg="#fff" py="8" borderRadius="xl" boxShadow="md" mb="8">
-              <Heading as="h2" size="xl" color="#333" mb="4" textAlign="center">
+            <Box bg="#E4C59E" py="8" borderRadius="xl" boxShadow="md" mb="8">
+              <Heading as="h2" size="xl" color="#322C2B" mb="4" textAlign="center">
                 Nuestros Productos
               </Heading>
               {/* Lista de productos */}
@@ -180,9 +127,9 @@ const App = () => {
           </section>
           {/* Sección de contacto */}
           <section>
-            <Box bg="#f9fafb" py="12" borderRadius="xl" boxShadow="md">
+            <Box bg="#E4C59E" py="12" borderRadius="xl" boxShadow="md">
               <Box maxW="container.md" mx="auto" textAlign="center">
-                <Heading as="h2" size="lg" color="#333" mb="4">¡Contáctanos!</Heading>
+                <Heading as="h2" size="lg" color="#322C2B" mb="4">¡Contáctanos!</Heading>
                 <p>Estamos aquí para ayudarte. ¡No dudes en ponerte en contacto con nosotros!</p>
               </Box>
             </Box>

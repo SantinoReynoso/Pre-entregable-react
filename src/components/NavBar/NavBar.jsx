@@ -1,29 +1,17 @@
 import React from 'react';
-import { Flex, Box, Text, Spacer } from '@chakra-ui/react';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 const NavBar = () => {
     return (
-        <Flex
-            as="nav"
-            align="center"
-            justify="space-between"
-            wrap="wrap"
-            padding="1.5rem"
-            bg="gray.800"
-            color="white"
-        >
-            <Box>
-                <Text fontSize="lg" fontWeight="bold">Home</Text>
-            </Box>
-            <Spacer />
-            <Box>
-                <Text fontSize="lg" fontWeight="bold">Nosotros</Text>
-            </Box>
-            <Spacer />
-            <Box>
-                <Text fontSize="lg" fontWeight="bold">Productos</Text>
-            </Box>
-        </Flex>
+        <Navbar bg="dark" variant="dark">
+            <Navbar.Brand href="#home">Mi Tienda</Navbar.Brand>
+            <Nav className="mr-auto">
+                <Nav.Link href="#home">Home</Nav.Link>
+                <Nav.Link href="#nosotros">Nosotros</Nav.Link>
+                <Nav.Link href="#productos">Productos</Nav.Link>
+            </Nav>
+        </Navbar>
     );
 };
 
