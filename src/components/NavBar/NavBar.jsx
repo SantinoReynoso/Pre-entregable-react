@@ -1,18 +1,28 @@
 import React from 'react';
-import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import lalentejaImage from "../../assets/lalenteja.jpg";
 
-const NavBar = () => {
-    return (
-        <Navbar bg="dark" variant="dark">
-            <Navbar.Brand href="#home">Mi Tienda</Navbar.Brand>
-            <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#nosotros">Nosotros</Nav.Link>
-                <Nav.Link href="#productos">Productos</Nav.Link>
-            </Nav>
-        </Navbar>
-    );
-};
+
+function NavBar() {
+  return (
+    <>
+      <Navbar className="bg-body-tertiary">
+        <Container>
+          <Navbar.Brand href="#home">
+            <img
+              alt=""
+              src={lalentejaImage} // Utiliza la variable importada
+              width="30"
+              height="30"
+              className="d-inline-block align-top rounded-circle mr-2" // Añade clases de Bootstrap para el estilo
+            />{' '}
+            <span className="font-weight-bold text-uppercase">La Lenteja</span> {/* Estilo de texto */}
+          </Navbar.Brand>
+        </Container>
+      </Navbar> 
+    </>
+  );
+}
 
 export default NavBar;

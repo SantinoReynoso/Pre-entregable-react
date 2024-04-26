@@ -1,30 +1,26 @@
-import React, { useState } from 'react';
+// ProductList.jsx
+
+import React from 'react';
 import { Card, Button } from 'react-bootstrap';
-import FiltroProductos from './filtroProductos'; // Importa el componente FiltroProductos
 
-const ProductList = ({ products }) => {
-  const [productosFiltrados, setProductosFiltrados] = useState(products);
-
-  const handleFiltrarProductos = (productosFiltrados) => {
-    setProductosFiltrados(productosFiltrados);
+const ProductList = ({ products, handleAddToCart, setSelectedProduct }) => {
+  const handleClick = (product) => {
+    setSelectedProduct(product); // Establecer el producto seleccionado
   };
 
   return (
     <div>
-      {/* Componente de filtro */}
-      <FiltroProductos products={products} onFiltrarProductos={handleFiltrarProductos} />
-
       {/* Lista de productos */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '25px', height: 'auto', overflow: 'auto' }}>
-        {productosFiltrados.map(product => (
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px', padding: '20px' }}>
+        {products.map(product => (
           <div key={product.id}>
-            <Card style={{ width: '18rem' }}>
+            <Card style={{ width: '100%' }}>
               {/* Asegúrate de que la ruta de la imagen sea correcta */}
-              <Card.Img variant="top" src={product.image} />
+              <Card.Img variant="top" src={product.image} style={{ height: '200px', objectFit: 'cover' }} />
               <Card.Body>
-                <Card.Title>{product.name}</Card.Title>
-                <Card.Text>{product.price}</Card.Text>
-                <Button variant="primary" onClick={() => handleClick(product)}>Agregar al carrito</Button>
+                <Card.Title style={{ fontSize: '1.25rem', marginBottom: '10px' }}>{product.name}</Card.Title>
+                <Card.Text style={{ marginBottom: '10px' }}>{product.price}</Card.Text>
+                <Button variant="primary" onClick={() => handleClick(product)} style={{ width: '100%' }}>Ver detalles</Button>
               </Card.Body>
             </Card>
           </div>
@@ -35,3 +31,5 @@ const ProductList = ({ products }) => {
 };
 
 export default ProductList;
+
+
