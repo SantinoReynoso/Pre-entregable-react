@@ -1,24 +1,25 @@
 import React from 'react';
 import { IconButton, Badge, Flex } from '@chakra-ui/react';
 import { FaShoppingCart } from 'react-icons/fa';
-import { px } from 'framer-motion';
 
-const CartWidget = ({}) => {
+const CartWidget = () => {
+  const itemCount = 5; // Número hardcodeado de elementos en el carrito
+
   return (
     <Flex align="center">
       {/* Icono del carrito de compras */}
       <IconButton
         icon={<FaShoppingCart />}
         color="white" 
-        variant="link" // Variante de enlace
+        variant="link"
         aria-label="Carrito de compras"
         isDisabled
         size="lg" 
       />
 
-      {/* Número harcodeado simulando la cantidad de elementos en el carrito */}
-      <Badge colorScheme="red" borderRadius="full" px="2" ml="2">
-        0
+      {/* Número de elementos en el carrito (hardcodeado) */}
+      <Badge colorScheme="blue" borderRadius="full" px="3" ml="1">
+        {itemCount}
       </Badge>
     </Flex>
   );

@@ -1,28 +1,27 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
+import { Container, Flex, Image, Text } from '@chakra-ui/react';
 import lalentejaImage from "../../assets/lalenteja.jpg";
 
-
-function NavBar() {
+const NavBar = () => {
   return (
-    <>
-      <Navbar className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand href="#home">
-            <img
-              alt=""
-              src={lalentejaImage} // Utiliza la variable importada
-              width="30"
-              height="30"
-              className="d-inline-block align-top rounded-circle mr-2" // Añade clases de Bootstrap para el estilo
-            />{' '}
-            <span className="font-weight-bold text-uppercase">La Lenteja</span> {/* Estilo de texto */}
-          </Navbar.Brand>
-        </Container>
-      </Navbar> 
-    </>
+    <Container maxW="container.xl" py="4">
+      <Flex alignItems="center">
+        {/* Imagen de La Lenteja */}
+        <Image src={lalentejaImage} alt="La Lenteja" boxSize="150px" mr="3" borderRadius="35px" />
+
+        {/* Espaciador para separar elementos */}
+        <Flex flex="1" />
+
+        {/* Otros elementos de navegación */}
+        <Text fontSize="lg" color="white" mr="4" cursor="pointer">Inicio</Text>
+        <Text fontSize="lg" color="white" mr="4" cursor="pointer">Productos</Text>
+        <Text fontSize="lg" color="white" mr="4" cursor="pointer">Contacto</Text>
+
+        {/* Botón de inicio de sesión */}
+        <Text fontSize="lg" color="white" cursor="pointer">Iniciar Sesión</Text>
+      </Flex>
+    </Container>
   );
-}
+};
 
 export default NavBar;
