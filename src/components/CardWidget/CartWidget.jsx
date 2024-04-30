@@ -3,7 +3,7 @@ import { IconButton, Badge, Flex } from '@chakra-ui/react';
 import { FaShoppingCart } from 'react-icons/fa';
 
 const CartWidget = () => {
-  const itemCount = 5; // Número hardcodeado de elementos en el carrito
+  const itemCount = 5; // Número hardcodeado
 
   return (
     <Flex align="center">

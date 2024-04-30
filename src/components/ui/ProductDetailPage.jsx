@@ -1,17 +1,19 @@
+//productdetailpage
+
 import React, { useState } from 'react';
 import { Container, Heading, Box, Button, Flex, Text, Image, Spacer, Input, FormControl, FormLabel, Select, Divider, SimpleGrid } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom'; // Importa useParams
+import { useParams } from 'react-router-dom';
 
 const ProductDetailPage = ({ product, onBack }) => {
   const [quantity, setQuantity] = useState(1);
-  const { id } = useParams(); // Obtiene el ID del producto de la URL usando useParams
+  const { id } = useParams(); 
 
   const handleQuantityChange = (event) => {
     setQuantity(parseInt(event.target.value));
   };
 
   const handleAddToCart = () => {
-    console.log(`Agregado al carrito: ${quantity} ${product.name}`);
+    // console.log(`Agregado al carrito: ${quantity} ${product.name}`);
   };
 
   const relatedProducts = [
