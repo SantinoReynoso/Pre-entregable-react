@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
 import { Container, Heading, Box, Button, Flex, Text, Image, Spacer, Input, FormControl, FormLabel, Select, Divider, SimpleGrid } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom'; // Importa useParams
 
 const ProductDetailPage = ({ product, onBack }) => {
-  // Estado para controlar la cantidad de productos a agregar al carrito
   const [quantity, setQuantity] = useState(1);
+  const { id } = useParams(); // Obtiene el ID del producto de la URL usando useParams
 
-  // Función para manejar cambios en la cantidad de productos
   const handleQuantityChange = (event) => {
-    // Convertir el valor de entrada a un número entero y actualizar el estado de cantidad
     setQuantity(parseInt(event.target.value));
   };
 
-  // Función para agregar el producto al carrito con la cantidad seleccionada
   const handleAddToCart = () => {
-  // Aquí puedes implementar la lógica para agregar el producto al carrito con la cantidad seleccionada
     console.log(`Agregado al carrito: ${quantity} ${product.name}`);
   };
 
-  // Productos relacionados (dummy data)
   const relatedProducts = [
     {
       id: 1,
@@ -41,53 +37,36 @@ const ProductDetailPage = ({ product, onBack }) => {
 
   return (
     <Container maxW="container.xl" py="8">
-      {/* Detalles del producto */}
       <Box bg="white" p="8" borderRadius="xl" boxShadow="lg">
-        {/* Título */}
         <Heading as="h1" size="xl" color="gray.800" mb="4">
           Detalles del Producto
         </Heading>
-        {/* Flex container para la imagen y detalles del producto */}
         <Flex justifyContent="space-between" mb="4">
-          {/* Imagen del producto */}
           <Image src={product.image} alt={product.name} boxSize="300px" objectFit="contain" />
-          {/* Detalles del producto */}
           <Box ml="8" w="50%">
-            {/* Nombre del producto */}
             <Text fontSize="2xl" fontWeight="bold" mb="2">{product.name}</Text>
-            {/* Precio del producto */}
             <Text fontSize="lg" mb="4">{product.price}</Text>
-            {/* Selector de cantidad */}
             <FormControl>
               <FormLabel htmlFor="quantity">Cantidad:</FormLabel>
-              {/* Input para seleccionar la cantidad */}
               <Input type="number" id="quantity" value={quantity} onChange={handleQuantityChange} min={1} />
             </FormControl>
           </Box>
         </Flex>
-        {/* Divider para separar los detalles del producto del botón de agregar al carrito */}
         <Divider mb="4" />
-        {/* Botón para agregar al carrito */}
         <Button colorScheme="blue" onClick={handleAddToCart} w="100%" mb="4">Agregar al Carrito</Button>
-        {/* Botón para volver a la página principal */}
         <Button 
-        variant="outline" 
-        onClick={onBack} 
-        w="100%" 
-        colorScheme="brown" // Utiliza el color marrón para el borde y el texto
-        bg="beige" // Utiliza el color beige para el fondo
-        boxShadow="md"
-        _hover={{ boxShadow: "lg" }} // Cambia la sombra al pasar el ratón sobre el botón
-          >
-            Volver a la Página Principal
-              </Button>
-
+          variant="outline" 
+          onClick={onBack} 
+          w="100%" 
+          colorScheme="brown" 
+          bg="beige" 
+          boxShadow="md"
+          _hover={{ boxShadow: "lg" }}>Volver a la Página Principal
+        </Button>
       </Box>
-      {/* Sección de productos relacionados */}
       <Box mt="8">
         <Heading as="h2" size="lg" mb="4">Productos Relacionados</Heading>
         <SimpleGrid columns={[1, 2, 3]} gap="30">
-          {/* Mapeo de los productos relacionados */}
           {relatedProducts.map(relatedProduct => (
             <Box key={relatedProduct.id} bg="white" p="50" borderRadius="xl" boxShadow="md">
               <Image src={relatedProduct.image} alt={relatedProduct.name} boxSize="150px" objectFit="contain" />
@@ -102,8 +81,6 @@ const ProductDetailPage = ({ product, onBack }) => {
 };
 
 export default ProductDetailPage;
-
-
 
 
 
