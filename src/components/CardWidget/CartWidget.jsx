@@ -13,8 +13,9 @@ const CartWidget = () => {
         color="white" 
         variant="link"
         aria-label="Carrito de compras"
-        isDisabled
+        cursor={"pointer"}
         size="lg" 
+        fontSize="2xl"
       />
 
       {/* Número de elementos en el carrito (hardcodeado) */}

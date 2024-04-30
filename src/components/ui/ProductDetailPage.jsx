@@ -70,15 +70,26 @@ const ProductDetailPage = ({ product, onBack }) => {
         {/* Botón para agregar al carrito */}
         <Button colorScheme="blue" onClick={handleAddToCart} w="100%" mb="4">Agregar al Carrito</Button>
         {/* Botón para volver a la página principal */}
-        <Button variant="outline" onClick={onBack} w="100%">Volver a la Página Principal</Button>
+        <Button 
+        variant="outline" 
+        onClick={onBack} 
+        w="100%" 
+        colorScheme="brown" // Utiliza el color marrón para el borde y el texto
+        bg="beige" // Utiliza el color beige para el fondo
+        boxShadow="md"
+        _hover={{ boxShadow: "lg" }} // Cambia la sombra al pasar el ratón sobre el botón
+          >
+            Volver a la Página Principal
+              </Button>
+
       </Box>
       {/* Sección de productos relacionados */}
       <Box mt="8">
         <Heading as="h2" size="lg" mb="4">Productos Relacionados</Heading>
-        <SimpleGrid columns={[1, 2, 3]} gap="4">
+        <SimpleGrid columns={[1, 2, 3]} gap="30">
           {/* Mapeo de los productos relacionados */}
           {relatedProducts.map(relatedProduct => (
-            <Box key={relatedProduct.id} bg="white" p="4" borderRadius="xl" boxShadow="md">
+            <Box key={relatedProduct.id} bg="white" p="50" borderRadius="xl" boxShadow="md">
               <Image src={relatedProduct.image} alt={relatedProduct.name} boxSize="150px" objectFit="contain" />
               <Text fontSize="lg" fontWeight="bold" mt="2">{relatedProduct.name}</Text>
               <Text fontSize="md" mt="1">${relatedProduct.price}</Text>

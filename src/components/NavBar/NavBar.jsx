@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Importa el componente Link
 import { Container, Flex, Image, Text } from '@chakra-ui/react';
 import lalentejaImage from "../../assets/lalenteja.jpg";
 
@@ -13,15 +14,20 @@ const NavBar = () => {
         <Flex flex="1" />
 
         {/* Otros elementos de navegación */}
-        <Text fontSize="lg" color="white" mr="4" cursor="pointer">Inicio</Text>
-        <Text fontSize="lg" color="white" mr="4" cursor="pointer">Productos</Text>
-        <Text fontSize="lg" color="white" mr="4" cursor="pointer">Contacto</Text>
+        <Link to="/" style={{ textDecoration: 'none' }}> {/* Enlace a la página de inicio */}
+          <Text fontSize="lg" color="white" mr="4" cursor="pointer">Inicio</Text>
+        </Link>
+        <Link to="/productos" style={{ textDecoration: 'none' }}> {/* Enlace a la página de productos */}
+          <Text fontSize="lg" color="white" mr="4" cursor="pointer">Productos</Text>
+        </Link>
+        <Text fontSize="lg" color="white" mr="4" cursor="not-allowed">Contacto</Text>
 
         {/* Botón de inicio de sesión */}
-        <Text fontSize="lg" color="white" cursor="pointer">Iniciar Sesión</Text>
+        <Text fontSize="lg" color="white" cursor="not-allowed">Iniciar Sesión</Text>
       </Flex>
     </Container>
   );
 };
 
 export default NavBar;
+
