@@ -6,6 +6,8 @@ import productsData from '../data/productsData';
 import NavBar from "../components/NavBar/NavBar";
 import CartWidget from "../components/CardWidget/CartWidget";
 import ProductDetailPage from "../components/ui/ProductDetailPage";
+import Footer from "../components/Footer/Foote"
+import Titulo from '../components/ui/Titulo';
 
 const Home = ({ cart, setCart }) => {
   const [filteredProducts, setFilteredProducts] = useState(productsData);
@@ -42,9 +44,7 @@ const Home = ({ cart, setCart }) => {
         ) : (
           <>
             <Flex justifyContent="space-between" alignItems="center" mb="4">
-              <Heading as="h1" size="3" color="#322C2B" letterSpacing="wide">
-                La Lenteja online
-              </Heading>
+              <Titulo />
               <CartWidget cart={cart} />
             </Flex>
             <Box bg="#E4C59E" py="8" borderRadius="xl" boxShadow="md" mb="8">
@@ -54,10 +54,7 @@ const Home = ({ cart, setCart }) => {
               <FiltroProductos handleFilter={handleFilter} />
               <ProductList products={filteredProducts} handleAddToCart={handleAddToCart} handleViewDetails={handleViewDetails} />
             </Box>
-            <Box bg="#E4C59E" py="12" borderRadius="xl" boxShadow="md" textAlign="center">
-              <Heading as="h2" size="lg" color="#322C2B" mb="4">¡Contáctanos!</Heading>
-              <p>Estamos aquí para ayudarte. ¡No dudes en ponerte en contacto con nosotros!</p>
-            </Box>
+            <Footer />
           </>
         )}
       </Container>
