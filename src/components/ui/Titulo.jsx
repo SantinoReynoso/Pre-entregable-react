@@ -12,7 +12,7 @@ const Titulo = () => {
       mt="15"
       mb="4"
       textTransform="uppercase"
-      fontFamily="Bebas Neue, sans-serif" // Agregamos "Bebas Neue" como primera opción
+      fontFamily="Bebas Neue, sans-serif"
       fontWeight="extrabold"
       textShadow="2px 2px 2px rgba(0,0,0,0.3)"
       _hover={{

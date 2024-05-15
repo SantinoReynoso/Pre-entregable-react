@@ -7,17 +7,15 @@ const CartWidget = () => {
 
   return (
     <Flex align="center">
-      {/* Icono del carrito de compras */}
-      <IconButton
-        icon={<FaShoppingCart />}
-        color="white" 
-        variant="link"
-        aria-label="Carrito de compras"
-        cursor={"pointer"}
-        size="lg" 
-        fontSize="2xl"
-      />
-
+        <IconButton
+          icon={<FaShoppingCart />}
+          color="white" 
+          variant="link"
+          aria-label="Carrito de compras"
+          cursor={"pointer"}
+          size="lg" 
+          fontSize="2xl"
+        />
       {/* Número de elementos en el carrito (hardcodeado) */}
       <Badge colorScheme="blue" borderRadius="full" px="3" ml="1">
         {itemCount}

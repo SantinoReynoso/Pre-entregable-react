@@ -40,8 +40,6 @@ const Productos = () => {
               <Heading as="h1" size="3" color="#322C2B" letterSpacing="wide">
                 Productos
               </Heading>
-              {/* Agrega el componente de carrito */}
-              <CartWidget />
             </Flex>
             <Box bg="#E4C59E" py="8" borderRadius="xl" boxShadow="md" mb="8">
               <Heading as="h2" size="xl" color="#322C2B" mb="4" textAlign="center">

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Im
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/home';
 import Productos from './pages/productos';
+import CartPage from './pages/cartpage';
 
 // Importa useParams de react-router-dom
 import { useParams } from 'react-router-dom';
@@ -27,6 +28,7 @@ const App = () => {
               <Route path="/" element={<Home cart={cart} setCart={setCart} />} />
               <Route path="/productos" element={<Productos />} />
               <Route path="/productos/:id" element={<ProductoDetalle />} />
+              <Route path="/cartpage" element={<CartPage cart={cart} setCart={setCart} />} />
             </Routes>
           </Container>
         </Box>

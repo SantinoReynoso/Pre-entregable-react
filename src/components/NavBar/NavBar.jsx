@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Importa el componente Link
 import { Container, Flex, Image, Text } from '@chakra-ui/react';
 import lalentejaImage from "../../assets/lalenteja.jpg";
+import CartWidget from '../CardWidget/CartWidget';
 
 const NavBar = () => {
   return (
@@ -21,10 +22,14 @@ const NavBar = () => {
           <Text fontSize="lg" color="white" mr="4" cursor="pointer">Productos</Text>
         </Link>
         <Text fontSize="lg" color="white" mr="4" cursor="not-allowed">Contacto</Text>
-
-        {/* Botón de inicio de sesión */}
         <Text fontSize="lg" color="white" cursor="not-allowed">Iniciar Sesión</Text>
       </Flex>
+      <Flex justify="flex-end">
+        <Link to="/Cartpage" style={{ textDecoration: 'none' }}>{/* Enlace a la página del carrito */}
+      <CartWidget/>
+      </Link>
+      </Flex>
+      
     </Container>
   );
 };
