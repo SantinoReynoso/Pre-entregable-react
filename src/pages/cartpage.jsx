@@ -1,31 +1,30 @@
-import React from "react";
+// CartPage.jsx
+import React, { useState } from "react";
 import NavBar from "../components/NavBar/NavBar";
-import { Container, Heading, Box, Button, Flex, Text, Image, Spacer } from '@chakra-ui/react'; 
+import { Container, Heading, Box, Button, Flex, Text } from '@chakra-ui/react'; 
+import CartItem from "../components/ItemListContainer/CartItem";
 
-const CartPage = ({ cartItems }) => {
+const CartPage = () => {
+  const [cartItems, setCartItems] = useState([]);
+
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + item.price, 0);
   };
 
+  const handleRemoveFromCart = (id) => {
+    const updatedCart = cartItems.filter(item => item.id !== id);
+    setCartItems(updatedCart);
+  };
+
   return (
     <div>
-      <NavBar />
+      <NavBar cartItems={cartItems} />
       <Container maxW="container.xl" py="8">
         <Heading as="h1" size="xl" mb="4">Tu Carrito de Compras</Heading>
-        {cartItems && cartItems.length > 0 ? (
+        {cartItems.length > 0 ? (
           <>
             {cartItems.map((item) => (
-              <Box key={item.id} bg="white" p="4" mb="4" borderRadius="md" boxShadow="md">
-                <Flex alignItems="center">
-                  <Image src={item.image} alt={item.name} boxSize="100px" objectFit="contain" mr="4" />
-                  <Box>
-                    <Text fontSize="lg" fontWeight="bold">{item.name}</Text>
-                    <Text fontSize="md" color="gray.600">${item.price}</Text>
-                  </Box>
-                  <Spacer />
-                  <Button colorScheme="red">Eliminar</Button>
-                </Flex>
-              </Box>
+              <CartItem key={item.id} item={item} onRemove={handleRemoveFromCart} />
             ))}
             <Box bg="white" p="4" borderRadius="md" boxShadow="md" mt="4">
               <Flex justifyContent="space-between" alignItems="center">

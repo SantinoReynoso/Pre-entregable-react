@@ -4,7 +4,7 @@ import { Container, Flex, Image, Text } from '@chakra-ui/react';
 import lalentejaImage from "../../assets/lalenteja.jpg";
 import CartWidget from '../CardWidget/CartWidget';
 
-const NavBar = () => {
+const NavBar = ({ cart, setcart }) => {
   return (
     <Container maxW="container.xl" py="4">
       <Flex alignItems="center">
@@ -26,7 +26,7 @@ const NavBar = () => {
       </Flex>
       <Flex justify="flex-end">
         <Link to="/Cartpage" style={{ textDecoration: 'none' }}>{/* Enlace a la página del carrito */}
-      <CartWidget/>
+      <CartWidget cart={cart}/>
       </Link>
       </Flex>
       
