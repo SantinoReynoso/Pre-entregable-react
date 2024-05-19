@@ -6,10 +6,9 @@ import productsData from '../data/productsData';
 import NavBar from "../components/NavBar/NavBar";
 import ProductDetailPage from "../components/ui/ProductDetailPage";
 import Footer from "../components/Footer/Foote";
-import CartWidget from "../components/CardWidget/CartWidget";
 import Titulo from '../components/ui/Titulo';
 
-const Home = ({ cart, setCart }) => {
+const Home = () => {
   // Estado para contar la cantidad de elementos en el carrito
   const [cartItemCount, setCartItemCount] = useState(0);
 
@@ -39,6 +38,10 @@ const Home = ({ cart, setCart }) => {
     setSelectedProduct(null);
   };
 
+   // Función para manejar el click en "Agregar al carrito"
+   const handleAddToCartClick = (quantity) => {
+    setCartItemCount(prevCount => prevCount + quantity);
+  };
   return (
     <>
       <NavBar cartItemCount={cartItemCount} />
@@ -46,9 +49,11 @@ const Home = ({ cart, setCart }) => {
         {selectedProduct ? (
           // Página de detalles del producto
           <ProductDetailPage
-            product={selectedProduct}
-            onBack={handleBackToHome}
-          />
+          product={selectedProduct}
+          onBack={handleBackToHome}
+          handleAddToCart={handleAddToCartClick}
+        />
+        
         ) : (
           // Página de inicio con lista de productos
           <>
