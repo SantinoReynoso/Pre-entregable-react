@@ -4,6 +4,7 @@ import { Heading } from '@chakra-ui/react';
 const Titulo = () => {
   return (
     <Heading
+    className="text-4xl"
       as="h1"
       size="2xl"
       letterSpacing="normal"
@@ -27,4 +28,3 @@ const Titulo = () => {
 };
 
 export default Titulo;
-

@@ -4,9 +4,12 @@ import { Box, Flex, Heading, Text, Link } from '@chakra-ui/react';
 const Footer = () => {
   return (
     <Box bg="#E4C59E" py="12" borderRadius="xl" boxShadow="md" textAlign="center">
+      {/* Título */}
       <Heading as="h2" size="lg" color="#322C2B" mb="4">¡Contáctanos!</Heading>
+      {/* Texto de contacto */}
       <Text mb="4">Estamos aquí para ayudarte. ¡No dudes en ponerte en contacto con nosotros!</Text>
       
+      {/* Enlaces */}
       <Flex justify="center" mb="4">
         <Link mx="4" color="#322C2B" fontWeight="bold" href="/nosotros">Nosotros</Link>
         <Link mx="4" color="#322C2B" fontWeight="bold" href="/productos">Productos</Link>
@@ -14,8 +17,8 @@ const Footer = () => {
         <Link mx="4" color="#322C2B" fontWeight="bold" href="/contacto">Contacto</Link>
       </Flex>
       
+      {/* Redes sociales */}
       <Text mb="4">Síguenos en nuestras redes sociales:</Text>
-      
       <Flex justify="center" mb="4">
         <Link mx="2" href="https://facebook.com" target="_blank" rel="noopener noreferrer">
           <Box as="i" className="fab fa-facebook-square" fontSize="2xl" color="#3b5998" />
@@ -28,6 +31,7 @@ const Footer = () => {
         </Link>
       </Flex>
       
+      {/* Derechos de autor */}
       <Text color="#322C2B" fontSize="sm">© {new Date().getFullYear()} La Lenteja. Todos los derechos reservados.</Text>
     </Box>
   );

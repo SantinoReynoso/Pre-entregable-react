@@ -12,7 +12,6 @@ const ProductDetailPage = ({ product, onBack, handleAddToCart }) => {
 
   const addToCart = () => {
     handleAddToCart(quantity);
-    console.log("Agregado al carrito");
   };
 
   const relatedProducts = [
@@ -54,7 +53,6 @@ const ProductDetailPage = ({ product, onBack, handleAddToCart }) => {
           </Box>
         </Flex>
         <Divider mb="4" />
-        {/* Utiliza la función addToCart en lugar de onAddToCartClick */}
         <Button colorScheme="blue" onClick={addToCart} w="100%" mb="4">
           Agregar al Carrito
         </Button>
@@ -86,3 +84,4 @@ const ProductDetailPage = ({ product, onBack, handleAddToCart }) => {
 };
 
 export default ProductDetailPage;
+

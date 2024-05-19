@@ -1,24 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Heading, Box, Flex } from '@chakra-ui/react';
 import ProductList from '../components/ui/productsList';
 import FiltroProductos from '../components/ui/filtroProductos';
 import productsData from '../data/productsData';
-import NavBar from "../components/NavBar/NavBar";
-import ProductDetailPage from "../components/ui/ProductDetailPage";
-import Footer from "../components/Footer/Foote";
+import NavBar from '../components/NavBar/NavBar';
+import ProductDetailPage from '../components/ui/ProductDetailPage';
+import Footer from '../components/Footer/Foote';
 import Titulo from '../components/ui/Titulo';
+import { CartContext } from '../components/contex/CartContext';
 
 const Home = () => {
-  // Estado para contar la cantidad de elementos en el carrito
+  const { cart, setCart } = useContext(CartContext);
   const [cartItemCount, setCartItemCount] = useState(0);
-
-  // Estado para almacenar los productos filtrados
   const [filteredProducts, setFilteredProducts] = useState(productsData);
-  
-  // Estado para almacenar el producto seleccionado para ver detalles
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // Función para manejar el filtro de productos por categoría
   const handleFilter = (category) => {
     if (category === 'Todos') {
       setFilteredProducts(productsData);
@@ -28,34 +24,41 @@ const Home = () => {
     }
   };
 
-  // Función para ver los detalles de un producto
   const handleViewDetails = (product) => {
     setSelectedProduct(product);
   };
 
-  // Función para volver a la página de inicio desde los detalles del producto
   const handleBackToHome = () => {
     setSelectedProduct(null);
   };
 
-   // Función para manejar el click en "Agregar al carrito"
-   const handleAddToCartClick = (quantity) => {
+  const handleAddToCartClick = (quantity) => {
     setCartItemCount(prevCount => prevCount + quantity);
   };
+
+  const addToCart = (product, quantity) => {
+    const existingProductIndex = cart.findIndex(item => item.id === product.id);
+    if (existingProductIndex !== -1) {
+      const updatedCart = [...cart];
+      updatedCart[existingProductIndex].quantity += quantity;
+      setCart(updatedCart);
+    } else {
+      setCart([...cart, { ...product, quantity }]);
+    }
+    handleAddToCartClick(quantity);
+  };
+
   return (
     <>
       <NavBar cartItemCount={cartItemCount} />
       <Container maxW="container.xl" py="8">
         {selectedProduct ? (
-          // Página de detalles del producto
           <ProductDetailPage
-          product={selectedProduct}
-          onBack={handleBackToHome}
-          handleAddToCart={handleAddToCartClick}
-        />
-        
+            product={selectedProduct}
+            onBack={handleBackToHome}
+            handleAddToCart={(quantity) => addToCart(selectedProduct, quantity)}
+          />
         ) : (
-          // Página de inicio con lista de productos
           <>
             <Flex justifyContent="space-between" alignItems="center" mb="4">
               <Titulo />
@@ -70,6 +73,10 @@ const Home = () => {
                 handleViewDetails={handleViewDetails}
               />
             </Box>
+            <div>
+              <h1>Home Page</h1>
+              <p>Items en el carrito: {cart.length}</p>
+            </div>
             <Footer />
           </>
         )}
