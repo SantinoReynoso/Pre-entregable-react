@@ -73,10 +73,6 @@ const Home = () => {
                 handleViewDetails={handleViewDetails}
               />
             </Box>
-            <div>
-              <h1>Home Page</h1>
-              <p>Items en el carrito: {cart.length}</p>
-            </div>
             <Footer />
           </>
         )}

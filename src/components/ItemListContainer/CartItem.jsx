@@ -7,7 +7,7 @@ const CartItem = ({ item }) => {
       <Flex alignItems="center">
         {/* Renderizar detalles del producto */}
         <Text fontSize="lg" fontWeight="bold">{item.name}</Text>
-        <Text fontSize="md" color="gray.600">${item.price}</Text>
+        <Text fontSize="md" color="gray.600">{item.price}</Text>
         {/* Puedes agregar más detalles del producto, como cantidad, descripción, etc. */}
         <Button colorScheme="red">Eliminar</Button>
       </Flex>

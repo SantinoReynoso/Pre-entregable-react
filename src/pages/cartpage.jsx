@@ -1,26 +1,12 @@
-// CartPage.jsx
-import React, { useState } from "react";
-import NavBar from "../components/NavBar/NavBar";
+import React, { useState, useContext } from "react";
 import { Container, Heading, Box, Button, Flex, Text } from '@chakra-ui/react'; 
-import CartItem from "../components/ItemListContainer/CartItem";
+import { CartContext } from '../components/contex/CartContext';
+import NavBar from "../components/NavBar/NavBar";
 
-const CartPage = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Producto 1",
-      price: 10.99,
-      quantity: 1,
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 2,
-      name: "Producto 2",
-      price: 15.99,
-      quantity: 2,
-      image: "https://via.placeholder.com/150",
-    },
-  ]);
+
+const CartPage = (onBack) => {
+  const { cart, setCart } = useContext(CartContext);
+  const [cartItems, setCartItems] = useState(cart);
 
   // Función para calcular el total del carrito
   const calculateTotal = () => {
@@ -31,38 +17,61 @@ const CartPage = () => {
   const handleRemoveFromCart = (id) => {
     const updatedCart = cartItems.filter(item => item.id !== id);
     setCartItems(updatedCart);
+    setCart(updatedCart); // Actualiza el carrito en el contexto
   };
 
   return (
-    <div>
-      {/* Barra de navegación con contador de elementos en el carrito */}
-      <NavBar cartItems={cartItems} />
+    <>
+  <Container maxW="container.xl" py="8">
+      <NavBar />
+      <Heading as="h1" size="xl" mb="8" textAlign="center">
+        Tu Carrito de Compras
+      </Heading>
 
-      <Container maxW="container.xl" py="8">
-        <Heading as="h1" size="xl" mb="4">Tu Carrito de Compras</Heading>
-
-        {/* Si hay elementos en el carrito, mostrarlos */}
-        {cartItems.length > 0 ? (
-          <>
-            {cartItems.map((item) => (
-              <CartItem key={item.id} item={item} onRemove={handleRemoveFromCart} />
-            ))}
-
-            {/* Sección para mostrar el total y el botón de confirmar compra */}
-            <Box bg="white" p="4" borderRadius="md" boxShadow="md" mt="4">
-              <Flex justifyContent="space-between" alignItems="center">
-                <Text fontSize="lg" fontWeight="bold">Total:</Text>
-                <Text fontSize="lg" fontWeight="bold">${calculateTotal()}</Text>
+      {cartItems.length > 0 ? (
+        <>
+          {cartItems.map((item, index) => (
+            <Box  bg="white" p="4" borderRadius="md" boxShadow="md" mt="8" key={item.id} mb={index < cartItems.length - 1 ? 8 : 0}>
+              <Flex alignItems="center" justifyContent="space-between" mb="4">
+                <Flex alignItems="center">
+                  <img src={item.image} alt={item.name} style={{ width: '100px', marginRight: '20px' }} />
+                  <Text fontSize="xl">{item.name}</Text>
+                </Flex>
+                <Flex alignItems="center">
+                  <Text p="4" fontSize="xl" mr="4">{item.price}</Text>
+                  <Button colorScheme="red" size="sm" onClick={() => handleRemoveFromCart(item)}>Eliminar</Button>
+                </Flex>
               </Flex>
-              <Button colorScheme="blue" mt="4">Confirmar Compra</Button>
             </Box>
-          </>
-        ) : (
-          // Mensaje si el carrito está vacío
-          <Text fontSize="xl">Tu carrito está vacío.</Text>
-        )}
-      </Container>
-    </div>
+          ))}
+
+          <Box bg="white" p="4" borderRadius="md" boxShadow="md" mt="8">
+            <Flex justifyContent="space-between" alignItems="center">
+              <Text fontSize="lg" fontWeight="bold">Total:</Text>
+              <Text fontSize="lg" fontWeight="bold">${calculateTotal()}</Text>
+            </Flex>
+            <Button colorScheme="blue" mt="4" w="full">
+              Confirmar Compra
+            </Button>
+            <Button
+              variant="outline" 
+              onClick={onBack} 
+              w="100%" 
+              colorScheme="brown" 
+              bg="beige" 
+              boxShadow="md"
+              _hover={{ boxShadow: "lg" }}>
+             Volver a la Página Principal
+            </Button>
+          </Box>
+        </>
+      ) : (
+        <Text fontSize="xl" textAlign="center">
+          Tu carrito está vacío.
+        </Text>
+      )}
+    </Container>
+    </>
   );
 };
 

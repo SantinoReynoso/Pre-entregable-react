@@ -11,7 +11,9 @@ const ProductDetailPage = ({ product, onBack, handleAddToCart }) => {
   };
 
   const addToCart = () => {
-    handleAddToCart(quantity);
+    handleAddToCart(quantity, () => {
+      onBack(); // Llamar a la función onBack
+    });
   };
 
   const relatedProducts = [

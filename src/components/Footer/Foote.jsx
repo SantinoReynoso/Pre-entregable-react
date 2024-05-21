@@ -32,7 +32,7 @@ const Footer = () => {
       </Flex>
       
       {/* Derechos de autor */}
-      <Text color="#322C2B" fontSize="sm">© {new Date().getFullYear()} La Lenteja. Todos los derechos reservados.</Text>
+      <Text color="#322C2B" fontSize="sm">© {new Date().getFullYear()} La Lenteja</Text>
     </Box>
   );
 };
