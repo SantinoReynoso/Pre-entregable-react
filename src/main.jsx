@@ -1,12 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createRoot } from 'react-dom/client';
-import App from './App.jsx';
+import { ChakraProvider } from '@chakra-ui/react';
+import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
+import App from './App';
 import './index.css';
 
-createRoot(document.getElementById('root')).render(
+// Crea el tema de Material-UI
+const muiTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+  },
+});
+
+// Renderiza la aplicación con ambos temas aplicados
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <MuiThemeProvider theme={muiTheme}>
+      <CssBaseline />
+      <ChakraProvider>
+        <App />
+      </ChakraProvider>
+    </MuiThemeProvider>
   </React.StrictMode>
 );
-

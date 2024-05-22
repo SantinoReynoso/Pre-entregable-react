@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Container, Heading, Box, Flex } from '@chakra-ui/react';
 import ProductList from '../components/ui/productsList';
 import FiltroProductos from '../components/ui/filtroProductos';
@@ -9,11 +9,16 @@ import Footer from '../components/Footer/Foote';
 import Titulo from '../components/ui/Titulo';
 import { CartContext } from '../components/contex/CartContext';
 
+
 const Home = () => {
   const { cart, setCart } = useContext(CartContext);
   const [cartItemCount, setCartItemCount] = useState(0);
   const [filteredProducts, setFilteredProducts] = useState(productsData);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  useEffect(() => {
+    setCartItemCount(cart.reduce((count, item) => count + item.quantity, 0));
+  }, [cart]);
 
   const handleFilter = (category) => {
     if (category === 'Todos') {
@@ -32,10 +37,6 @@ const Home = () => {
     setSelectedProduct(null);
   };
 
-  const handleAddToCartClick = (quantity) => {
-    setCartItemCount(prevCount => prevCount + quantity);
-  };
-
   const addToCart = (product, quantity) => {
     const existingProductIndex = cart.findIndex(item => item.id === product.id);
     if (existingProductIndex !== -1) {
@@ -45,13 +46,12 @@ const Home = () => {
     } else {
       setCart([...cart, { ...product, quantity }]);
     }
-    handleAddToCartClick(quantity);
   };
 
   return (
     <>
       <NavBar cartItemCount={cartItemCount} />
-      <Container maxW="container.xl" py="8">
+      <Container maxW="container.xl">
         {selectedProduct ? (
           <ProductDetailPage
             product={selectedProduct}
@@ -61,10 +61,10 @@ const Home = () => {
         ) : (
           <>
             <Flex justifyContent="space-between" alignItems="center" mb="4">
-              <Titulo />
+              <Titulo/>
             </Flex>
-            <Box bg="#E4C59E" py="8" borderRadius="xl" boxShadow="md" mb="8">
-              <Heading as="h2" size="xl" color="#322C2B" mb="4" textAlign="center">
+            <Box bg="#594747" p="12" borderRadius="xl" boxShadow="2xl" mb="8">
+              <Heading as="h2" size="xl" color="white" mb="4" textAlign="center">
                 Nuestros Productos
               </Heading>
               <FiltroProductos handleFilter={handleFilter} />

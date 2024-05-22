@@ -4,12 +4,12 @@ import { Container, Flex, Image, Text } from '@chakra-ui/react';
 import lalentejaImage from "../../assets/lalenteja.jpg";
 import CartWidget from '../CardWidget/CartWidget';
 
-const NavBar = ({ cartItemCount }) => {
+const NavBar = () => {
   return (
     <Container maxW="container.xl" py="4">
       <Flex alignItems="center">
         {/* Imagen de La Lenteja */}
-        <Image src={lalentejaImage} alt="La Lenteja" boxSize="150px" mr="3" borderRadius="35px" />
+        <Image src={lalentejaImage} alt="La Lenteja" boxSize="150px" mr="3" borderRadius="35px" boxShadow="2xl"/>
 
         {/* Espaciador para separar elementos */}
         <Flex flex="1" />
@@ -30,7 +30,7 @@ const NavBar = ({ cartItemCount }) => {
 
         {/* Enlace al carrito */}
         <Link to="/Cartpage" style={{ textDecoration: 'none' }}>
-          <CartWidget cartItemCount={cartItemCount} />
+          <CartWidget/>
         </Link>
 
       </Flex>

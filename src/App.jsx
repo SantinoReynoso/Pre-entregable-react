@@ -1,4 +1,4 @@
-// src/App.js
+// App.js
 import React from 'react';
 import { ChakraProvider, Box, Container } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -15,7 +15,7 @@ const App = () => {
     <ChakraProvider>
       <CartProvider>
         <Router>
-          <Box minHeight="100vh" bg="#AF8260" display="flex" flexDirection="column">
+          <Box minHeight="100vh" bg="#594747" display="flex" flexDirection="column">
             <Container flex="1" maxW="container.xl" py="8">
               <Routes>
                 <Route path="/" element={<Home />} />

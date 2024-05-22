@@ -4,10 +4,9 @@ import { Heading } from '@chakra-ui/react';
 const Titulo = () => {
   return (
     <Heading
-    className="text-4xl"
       as="h1"
       size="2xl"
-      letterSpacing="normal"
+      letterSpacing="wide"
       color="white"
       textAlign="center"
       mt="15"
@@ -15,7 +14,7 @@ const Titulo = () => {
       textTransform="uppercase"
       fontFamily="Bebas Neue, sans-serif"
       fontWeight="extrabold"
-      textShadow="2px 2px 2px rgba(0,0,0,0.3)"
+      boxShadow="2xl"
       _hover={{
         textShadow: "2px 2px 8px rgba(0,0,0,0.5)",
         transition: "text-shadow 0.3s ease-out",
