@@ -2,84 +2,84 @@
     {
       "id": 1,
       "name": "Aceite de coco orgánico",
-      "price": "$10",
+      "price": 10,
       "image": "/foto.jpg",
       "sector": "Dietetica"
     },
     {
       "id": 2,
       "name": "Quinoa integral",
-      "price": "$20",
+      "price": 20,
       "image": "/foto.jpg",
       "sector": "Semillas"
     },
     {
       "id": 3,
       "name": "Semillas de chía",
-      "price": "$8",
+      "price": 144,
       "image": "/foto.jpg",
       "sector": "Semillas"
     },
     {
       "id": 4,
       "name": "Frutos secos surtidos",
-      "price": "$15",
+      "price": 511,
       "image": "/foto.jpg",
       "sector": "Dietetica"
     },
     {
       "id": 5,
       "name": "Harina de almendras",
-      "price": "$12",
+      "price": 155,
       "image": "/foto.jpg",
       "sector": "Dietetica"
     },
     {
       "id": 6,
       "name": "Miel de abeja pura",
-      "price": "$18",
+      "price": 611,
       "image": "/foto.jpg",
       "sector": "Dietetica"
     },
     {
       "id": 7,
       "name": "Cúrcuma en polvo",
-      "price": "$7",
+      "price": 311,
       "image": "/foto.jpg",
       "sector": "Dietetica"
     },
     {
       "id": 8,
       "name": "Proteína de suero de leche",
-      "price": "$25",
+      "price": 666,
       "image": "/foto.jpg",
       "sector": "Suplementos"
     },
     {
       "id": 9,
       "name": "Suplemento de omega-3",
-      "price": "$30",
+      "price": 511,
       "image": "/foto.jpg",
       "sector": "Suplementos"
     },
     {
       "id": 10,
       "name": "Vinagre de manzana orgánico",
-      "price": "$5",
+      "price": 611,
       "image": "/foto.jpg",
       "sector": "Dietetica"
     },
     {
       "id": 11,
       "name": "Aceite de oliva virgen extra",
-      "price": "$8",
+      "price": 161,
       "image": "/foto.jpg",
       "sector": "Dietetica"
     },
     {
       "id": 12,
       "name": "Arroz integral",
-      "price": "$6",
+      "price": 614,
       "image": "/foto.jpg",
       "sector": "Dietetica"
     }

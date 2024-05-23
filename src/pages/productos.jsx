@@ -7,6 +7,7 @@ import NavBar from "../components/NavBar/NavBar";
 import ProductDetailPage from "../components/ui/ProductDetailPage";
 import { CartContext } from '../components/contex/CartContext';
 
+
 const Productos = () => {
   const { cart, setCart } = useContext(CartContext);
   const [cartItemCount, setCartItemCount] = useState(0);
@@ -69,7 +70,7 @@ const Productos = () => {
                 Nuestros Productos
               </Heading>
               <FiltroProductos handleFilter={handleFilter} />
-              <ProductList products={filteredProducts} handleViewDetails={handleViewDetails} />
+              <div data-aos="zoom-in"><ProductList products={filteredProducts} handleViewDetails={handleViewDetails} /></div>
             </Box>
             <Box bg="#594747" py="12" borderRadius="xl" boxShadow="md" textAlign="center">
               <Heading as="h2" size="lg" color="white" mb="4">¡Contáctanos!</Heading>

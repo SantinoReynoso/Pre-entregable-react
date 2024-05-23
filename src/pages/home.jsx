@@ -8,6 +8,8 @@ import ProductDetailPage from '../components/ui/ProductDetailPage';
 import Footer from '../components/Footer/Foote';
 import Titulo from '../components/ui/Titulo';
 import { CartContext } from '../components/contex/CartContext';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 const Home = () => {
@@ -15,7 +17,7 @@ const Home = () => {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [filteredProducts, setFilteredProducts] = useState(productsData);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
+  AOS.init();
   useEffect(() => {
     setCartItemCount(cart.reduce((count, item) => count + item.quantity, 0));
   }, [cart]);
@@ -61,7 +63,7 @@ const Home = () => {
         ) : (
           <>
             <Flex justifyContent="space-between" alignItems="center" mb="4">
-              <Titulo/>
+            <Titulo/>
             </Flex>
             <Box bg="#594747" p="12" borderRadius="xl" boxShadow="2xl" mb="8">
               <Heading as="h2" size="xl" color="white" mb="4" textAlign="center">

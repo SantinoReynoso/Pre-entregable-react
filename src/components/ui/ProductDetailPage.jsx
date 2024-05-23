@@ -12,21 +12,44 @@ import {
   Divider,
   SimpleGrid,
   useToast,
+  HStack,
 } from '@chakra-ui/react';
 import { FaCheck } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import { Button} from '@chakra-ui/react'
-import { px } from 'framer-motion';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 
 const ProductDetailPage = ({ product, onBack, handleAddToCart }) => {
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
   const toast = useToast();
-
+  AOS.init();
   const handleQuantityChange = (event) => {
-    setQuantity(parseInt(event.target.value));
+    const value = parseInt(event.target.value, 10);
+    if (value >= 1 && value <= 99) {
+      setQuantity(value);
+    }
   };
 
+  const incrementQuantity = () => {
+    setQuantity(prevQuantity => {
+      if (prevQuantity < 99) {
+        return prevQuantity + 1;
+      }
+      return prevQuantity;
+    });
+  };
+
+  const decrementQuantity = () => {
+    setQuantity(prevQuantity => {
+      if (prevQuantity > 1) {
+        return prevQuantity - 1;
+      }
+      return prevQuantity;
+    });
+  };
   const addToCart = () => {
     handleAddToCart(quantity);
     toast({
@@ -61,21 +84,33 @@ const ProductDetailPage = ({ product, onBack, handleAddToCart }) => {
 
   return (
     <Container bg="#594747" p="12" borderRadius="xl" boxShadow="md" maxW="container.xl" >
+      <div data-aos="zoom-in-down">
       <Box bg="white" p="8" borderRadius="xl" boxShadow="lg">
-        <Heading as="h1" size="xl" color="gray.800" mb="5">
+        <Heading as="h1" size="xl" color="gray.800" mb="5"boxShadow="lg">
           Detalles del Producto
         </Heading>
         <Flex direction={['column', 'row']} mb="4">
-          <Image src={product.image} alt={product.name} boxSize="300px" objectFit="contain" />
+          <Image src={product.image} alt={product.name} boxSize="300px" objectFit="contain" style={{borderRadius: "25%"}} />
           <Box ml={[0, '8']} w={['100%', '50%']}>
-            <Text fontSize="2xl" fontWeight="bold" mb="2">{product.name}</Text>
-            <Text fontSize="3xl" mb="5">{product.price}</Text>
+            <Text fontSize="3xl" fontWeight="bold" mb="2">{product.name}</Text>
+            <Text fontSize="3xl"  fontWeight="bold"mb="5">$ {product.price}</Text>
             <FormControl>
-            <FormLabel htmlFor="quantity">Cantidad:</FormLabel>
-            <Input type="number" id="quantity" value={quantity} onChange={handleQuantityChange} min={1} />
-            </FormControl>
+      <FormLabel htmlFor="quantity">Cantidad:</FormLabel>
+      <HStack>
+        <Button boxShadow="lg" onClick={decrementQuantity} disabled={quantity <= 1}>-</Button>
+        <Input 
+          type="number"
+          id="quantity"
+          value={quantity}
+          onChange={handleQuantityChange}
+          min={1}
+          max={99}
+        />
+        <Button boxShadow="lg" onClick={incrementQuantity} disabled={quantity >= 99}>+</Button>
+      </HStack>
+    </FormControl>
           <Divider mb="4" />
-            <Button colorScheme='teal' size='lg' onClick={addToCart} w="100%" mb="4">
+            <Button colorScheme='teal' size='lg' onClick={addToCart} w="100%" mb="4"boxShadow="lg">
               Agregar al Carrito
             </Button>
             <Button 
@@ -92,6 +127,7 @@ const ProductDetailPage = ({ product, onBack, handleAddToCart }) => {
         </Flex>
         <Divider mb="4" />
       </Box>
+      </div>
       <Box mt="8" bg="#594747" p="8">
         <Heading bg="white" p="8" borderRadius="xl" boxShadow="lg" as="h2" size="lg" mb="5">Productos Relacionados</Heading>
         <SimpleGrid columns={[1, 2, 3]} gap="30">
