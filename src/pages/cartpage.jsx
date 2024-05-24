@@ -25,6 +25,7 @@ import { CartContext } from '../components/contex/CartContext';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import NavBar from "../components/NavBar/NavBar";
 import { useNavigate  } from "react-router-dom";  // Importar useNavigate 
+import registerPurchase from '../firebase/db';  // Importar registerPurchase
 
 const CartPage = ({ onBack }) => {
   const { cart, setCart } = useContext(CartContext);
@@ -85,13 +86,19 @@ const CartPage = ({ onBack }) => {
     setCart(updatedCart); 
   };
 
-  const handleConfirmPurchase = () => {
-    // Aquí puedes agregar la lógica para conectar con Firebase
+  const handleConfirmPurchase = async () => {
+    // Aquí agregamos la lógica para conectar con Firebase
+    const purchaseDetails = {
+      items: cartItems,
+      totalAmount: calculateTotal(),
+      purchaseDate: new Date().toISOString()
+    };
+    const docRef = await registerPurchase(purchaseDetails);
 
     // Mostrar notificación de compra realizada
     toast({
       title: "Compra realizada con éxito",
-      description: "Tu compra ha sido procesada correctamente.",
+      description: `Tu compra ha sido procesada correctamente. Compra registrada con el ID: ${docRef.id}`,
       position: "top",
       status: "success",
       duration: 3000,

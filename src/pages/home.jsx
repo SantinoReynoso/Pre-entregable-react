@@ -8,6 +8,7 @@ import ProductDetailPage from '../components/ui/ProductDetailPage';
 import Footer from '../components/Footer/Foote';
 import Titulo from '../components/ui/Titulo';
 import { CartContext } from '../components/contex/CartContext';
+import { useParams } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -17,7 +18,9 @@ const Home = () => {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [filteredProducts, setFilteredProducts] = useState(productsData);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const { id } = useParams(); // Usa useParams para obtener los parámetros de la URL
   AOS.init();
+
   useEffect(() => {
     setCartItemCount(cart.reduce((count, item) => count + item.quantity, 0));
   }, [cart]);
