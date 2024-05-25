@@ -18,7 +18,7 @@ const Home = () => {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [filteredProducts, setFilteredProducts] = useState(productsData);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const { id } = useParams(); // Usa useParams para obtener los parámetros de la URL
+  const { id } = useParams();
   AOS.init();
 
   useEffect(() => {

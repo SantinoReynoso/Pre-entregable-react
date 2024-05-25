@@ -4,9 +4,7 @@ import { Box, Flex, Heading, Text, Link } from '@chakra-ui/react';
 const Footer = () => {
   return (
     <Box bg="#594747" py="12" borderRadius="xl" boxShadow="md" textAlign="center">
-      {/* Título */}
       <Heading as="h2" size="lg" color="white" mb="4">¡Contáctanos!</Heading>
-      {/* Texto de contacto */}
       <Text color="white" mb="4">Estamos aquí para ayudarte. ¡No dudes en ponerte en contacto con nosotros!</Text>
       
       {/* Enlaces */}

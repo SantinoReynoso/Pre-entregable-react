@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Button, ButtonGroup } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 
 const FiltroProductos = ({ handleFilter }) => {
-  // Estado para almacenar el filtro seleccionado
   const [selectedFilter, setSelectedFilter] = useState('Todos');
 
-  // Función para manejar el clic en un filtro
   const handleClick = (filter) => {
-    handleFilter(filter); // Llama a la función handleFilter del componente padre
-    setSelectedFilter(filter); // Actualiza el estado del filtro seleccionado
+    handleFilter(filter);
+    setSelectedFilter(filter);
   };
 
   return (

@@ -57,7 +57,6 @@ const Productos = () => {
             onBack={handleBackToProducts}
             handleAddToCart={(quantity) => {
               addToCart(selectedProduct, quantity);
-              // Agregar el producto al carrito de la página principal
               setCart([...cart, { ...selectedProduct, quantity }]);
             }}
           />

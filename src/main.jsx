@@ -6,7 +6,6 @@ import { CssBaseline } from '@mui/material';
 import App from './App';
 import './index.css';
 
-// Crea el tema de Material-UI
 const muiTheme = createTheme({
   palette: {
     primary: {
@@ -15,7 +14,6 @@ const muiTheme = createTheme({
   },
 });
 
-// Renderiza la aplicación con ambos temas aplicados
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <MuiThemeProvider theme={muiTheme}>

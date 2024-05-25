@@ -8,7 +8,7 @@ const CartWidget = () => {
   return (
     <Flex align="center" px={5}>
       <IconButton
-        icon={<FaShoppingCart style={{ fontSize: '30px' }} />} // Ajusta el tamaño del icono del carrito
+        icon={<FaShoppingCart style={{ fontSize: '30px' }} />}
         color="white"
         variant="link"
         aria-label="Carrito de compras"

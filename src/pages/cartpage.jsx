@@ -24,8 +24,8 @@ import {
 import { CartContext } from '../components/contex/CartContext';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import NavBar from "../components/NavBar/NavBar";
-import { useNavigate  } from "react-router-dom";  // Importar useNavigate 
-import registerPurchase from '../firebase/db';  // Importar registerPurchase
+import { useNavigate  } from "react-router-dom";
+import registerPurchase from '../firebase/db';
 
 const CartPage = ({ onBack }) => {
   const { cart, setCart } = useContext(CartContext);
@@ -34,7 +34,7 @@ const CartPage = ({ onBack }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
   const [itemToRemove, setItemToRemove] = useState(null);
-  const navigate = useNavigate();  // Instanciar useNavigate 
+  const navigate = useNavigate();
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => {
@@ -85,9 +85,8 @@ const CartPage = ({ onBack }) => {
     setCartItems(updatedCart);
     setCart(updatedCart); 
   };
-
+// funcion  para confirmar la compra y conectar con firebaes
   const handleConfirmPurchase = async () => {
-    // Aquí agregamos la lógica para conectar con Firebase
     const purchaseDetails = {
       items: cartItems,
       totalAmount: calculateTotal(),
@@ -95,7 +94,6 @@ const CartPage = ({ onBack }) => {
     };
     const docRef = await registerPurchase(purchaseDetails);
 
-    // Mostrar notificación de compra realizada
     toast({
       title: "Compra realizada con éxito",
       description: `Tu compra ha sido procesada correctamente. Compra registrada con el ID: ${docRef.id}`,
@@ -105,11 +103,8 @@ const CartPage = ({ onBack }) => {
       isClosable: true,
     });
 
-    // Reiniciar el carrito
     setCart([]);
     setCartItems([]);
-
-    // Opcionalmente redirigir a otra página después de confirmar la compra
     navigate("/");
   };
 
@@ -195,13 +190,13 @@ const CartPage = ({ onBack }) => {
 
                   <Button
                     colorScheme='teal' size='lg' mt="4" w="full"
-                    onClick={handleConfirmPurchase} // Confirmar compra
+                    onClick={handleConfirmPurchase} 
                   > 
                     Confirmar Compra
                   </Button>
                   <Button
                     variant="outline"
-                    onClick={handleBackToHome} // Volver a la página principal
+                    onClick={handleBackToHome}
                     w="full"
                     colorScheme="teal"
                     mt="4"
