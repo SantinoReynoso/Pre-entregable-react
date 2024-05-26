@@ -1,3 +1,4 @@
+//home.jsx
 import React, { useState, useContext, useEffect } from 'react';
 import { Container, Heading, Box, Flex } from '@chakra-ui/react';
 import ProductList from '../components/ui/productsList';
