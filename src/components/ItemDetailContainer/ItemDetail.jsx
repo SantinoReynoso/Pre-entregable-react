@@ -1,6 +1,4 @@
-// productdetail tengo que cambiarlo a ItemDetailContainer
-// -tengo 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Heading,
@@ -17,17 +15,18 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { FaCheck } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
-import { Button} from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-
-const ProductDetailPage = ({ product, onBack, handleAddToCart }) => {
+const ItemDetail = ({ product, onBack, handleAddToCart }) => {
   const [quantity, setQuantity] = useState(1);
-  const { id } = useParams();
   const toast = useToast();
-  AOS.init();
+
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   const handleQuantityChange = (event) => {
     const value = parseInt(event.target.value, 10);
     if (value >= 1 && value <= 99) {
@@ -36,22 +35,13 @@ const ProductDetailPage = ({ product, onBack, handleAddToCart }) => {
   };
 
   const incrementQuantity = () => {
-    setQuantity(prevQuantity => {
-      if (prevQuantity < 99) {
-        return prevQuantity + 1;
-      }
-      return prevQuantity;
-    });
+    setQuantity(prevQuantity => (prevQuantity < 99 ? prevQuantity + 1 : prevQuantity));
   };
 
   const decrementQuantity = () => {
-    setQuantity(prevQuantity => {
-      if (prevQuantity > 1) {
-        return prevQuantity - 1;
-      }
-      return prevQuantity;
-    });
+    setQuantity(prevQuantity => (prevQuantity > 1 ? prevQuantity - 1 : prevQuantity));
   };
+
   const addToCart = () => {
     handleAddToCart(quantity);
     toast({
@@ -63,6 +53,7 @@ const ProductDetailPage = ({ product, onBack, handleAddToCart }) => {
       icon: <FaCheck />,
     });
   };
+
   const relatedProducts = [
     {
       id: 1,
@@ -85,50 +76,50 @@ const ProductDetailPage = ({ product, onBack, handleAddToCart }) => {
   ];
 
   return (
-    <Container bg="#594747" p="12" borderRadius="xl" boxShadow="md" maxW="container.xl" >
+    <Container bg="#594747" p="12" borderRadius="xl" boxShadow="md" maxW="container.xl">
       <div data-aos="zoom-in-down">
-      <Box bg="white" p="8" borderRadius="xl" boxShadow="lg">
-        <Heading as="h1" size="xl" color="gray.800" mb="5"boxShadow="lg">
-          Detalles del Producto
-        </Heading>
-        <Flex direction={['column', 'row']} mb="4">
-          <Image src={product.image} alt={product.name} boxSize="300px" objectFit="contain" style={{borderRadius: "25%"}} />
-          <Box ml={[0, '8']} w={['100%', '50%']}>
-            <Text fontSize="3xl" fontWeight="bold" mb="2">{product.name}</Text>
-            <Text fontSize="3xl"  fontWeight="bold"mb="5">$ {product.price}</Text>
-            <FormControl>
-      <FormLabel htmlFor="quantity">Cantidad:</FormLabel>
-      <HStack>
-        <Button boxShadow="lg" onClick={decrementQuantity} disabled={quantity <= 1}>-</Button>
-        <Input 
-          type="number"
-          id="quantity"
-          value={quantity}
-          onChange={handleQuantityChange}
-          min={1}
-          max={99}
-        />
-        <Button boxShadow="lg" onClick={incrementQuantity} disabled={quantity >= 99}>+</Button>
-      </HStack>
-    </FormControl>
+        <Box bg="white" p="8" borderRadius="xl" boxShadow="lg">
+          <Heading as="h1" size="xl" color="gray.800" mb="5" boxShadow="lg">
+            Detalles del Producto
+          </Heading>
+          <Flex direction={['column', 'row']} mb="4">
+            <Image src={product.image} alt={product.name} boxSize="300px" objectFit="contain" style={{ borderRadius: "25%" }} />
+            <Box ml={[0, '8']} w={['100%', '50%']}>
+              <Text fontSize="3xl" fontWeight="bold" mb="2">{product.name}</Text>
+              <Text fontSize="3xl" fontWeight="bold" mb="5">$ {product.price}</Text>
+              <FormControl>
+                <FormLabel htmlFor="quantity">Cantidad:</FormLabel>
+                <HStack>
+                  <Button boxShadow="lg" onClick={decrementQuantity} disabled={quantity <= 1}>-</Button>
+                  <Input
+                    type="number"
+                    id="quantity"
+                    value={quantity}
+                    onChange={handleQuantityChange}
+                    min={1}
+                    max={99}
+                  />
+                  <Button boxShadow="lg" onClick={incrementQuantity} disabled={quantity >= 99}>+</Button>
+                </HStack>
+              </FormControl>
+              <Divider mb="4" />
+              <Button colorScheme='teal' size='lg' onClick={addToCart} w="100%" mb="4" boxShadow="lg">
+                Agregar al Carrito
+              </Button>
+              <Button
+                variant="outline"
+                onClick={onBack}
+                w="100%"
+                colorScheme="brown"
+                bg="beige"
+                boxShadow="md"
+                _hover={{ boxShadow: "lg" }}>
+                Volver a la Página Principal
+              </Button>
+            </Box>
+          </Flex>
           <Divider mb="4" />
-            <Button colorScheme='teal' size='lg' onClick={addToCart} w="100%" mb="4"boxShadow="lg">
-              Agregar al Carrito
-            </Button>
-            <Button 
-              variant="outline" 
-              onClick={onBack} 
-              w="100%" 
-              colorScheme="brown" 
-              bg="beige" 
-              boxShadow="md"
-              _hover={{ boxShadow: "lg" }}>
-              Volver a la Página Principal
-            </Button>
         </Box>
-        </Flex>
-        <Divider mb="4" />
-      </Box>
       </div>
       <Box mt="8" bg="#594747" p="8">
         <Heading bg="white" p="8" borderRadius="xl" boxShadow="lg" as="h2" size="lg" mb="5">Productos Relacionados</Heading>
@@ -146,4 +137,4 @@ const ProductDetailPage = ({ product, onBack, handleAddToCart }) => {
   );
 };
 
-export default ProductDetailPage;
+export default ItemDetail;

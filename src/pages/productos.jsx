@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { Container, Heading, Box, Flex, Text } from '@chakra-ui/react';
-import ProductList from '../components/ui/productsList';
+import ItemList from '../components/ui/ItemList';
+import ProductList from '../components/ui/ItemList';
 import FiltroProductos from '../components/ui/filtroProductos';
 import productsData from '../data/productsData';
 import NavBar from "../components/NavBar/NavBar";
-import ProductDetailPage from "../components/ui/ProductDetailPage";
+import ItemDetailPage from "../components/ItemDetailContainer/ItemDetail";
 import { CartContext } from '../components/contex/CartContext';
 
 
@@ -52,7 +53,7 @@ const Productos = () => {
       <NavBar cartItemCount={cartItemCount} />
       <Container maxW="container.xl" py="8">
         {selectedProduct ? (
-          <ProductDetailPage
+          <ItemDetailPage
             product={selectedProduct}
             onBack={handleBackToProducts}
             handleAddToCart={(quantity) => {
@@ -69,7 +70,8 @@ const Productos = () => {
                 Nuestros Productos
               </Heading>
               <FiltroProductos handleFilter={handleFilter} />
-              <div data-aos="zoom-in"><ProductList products={filteredProducts} handleViewDetails={handleViewDetails} /></div>
+              <div data-aos="zoom-in">
+                <ItemList products={filteredProducts} handleViewDetails={handleViewDetails} /></div>
             </Box>
             <Box bg="#594747" py="12" borderRadius="xl" boxShadow="md" textAlign="center">
               <Heading as="h2" size="lg" color="white" mb="4">¡Contáctanos!</Heading>

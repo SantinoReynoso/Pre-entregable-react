@@ -1,11 +1,11 @@
 //home.jsx
 import React, { useState, useContext, useEffect } from 'react';
 import { Container, Heading, Box, Flex } from '@chakra-ui/react';
-import ProductList from '../components/ui/productsList';
+import ItemList from '../components/ui/ItemList';
 import FiltroProductos from '../components/ui/filtroProductos';
 import productsData from '../data/productsData';
 import NavBar from '../components/NavBar/NavBar';
-import ProductDetailPage from '../components/ui/ProductDetailPage';
+import ItemDetailPage from '../components/ItemDetailContainer/ItemDetail';
 import Footer from '../components/Footer/Foote';
 import Titulo from '../components/ui/Titulo';
 import { CartContext } from '../components/contex/CartContext';
@@ -59,7 +59,7 @@ const Home = () => {
       <NavBar cartItemCount={cartItemCount} />
       <Container maxW="container.xl">
         {selectedProduct ? (
-          <ProductDetailPage
+          <ItemDetailPage
             product={selectedProduct}
             onBack={handleBackToHome}
             handleAddToCart={(quantity) => addToCart(selectedProduct, quantity)}
@@ -74,7 +74,7 @@ const Home = () => {
                 Nuestros Productos
               </Heading>
               <FiltroProductos handleFilter={handleFilter} />
-              <ProductList
+              <ItemList
                 products={filteredProducts}
                 handleViewDetails={handleViewDetails}
               />
