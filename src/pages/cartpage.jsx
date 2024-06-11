@@ -25,10 +25,13 @@ import NavBar from "../components/NavBar/NavBar";
 import { useNavigate  } from "react-router-dom";
 import registerPurchase from '../firebase/db';
 import ItemCount from '../components/ItemListContainer/ItemCount';
+import CustomerDetailsForm from '../components/ui/CustomerDetailsForm';
 
 const CartPage = () => {
   const { cart, setCart } = useContext(CartContext);
   const [cartItems, setCartItems] = useState(cart);
+  const [showCustomerForm, setShowCustomerForm] = useState(false);
+  const [customerDetails, setCustomerDetails] = useState(null);
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
@@ -85,32 +88,59 @@ const CartPage = () => {
     setCart(updatedCart); 
   };
 
-  const handleConfirmPurchase = async () => {
+  const handleConfirmPurchase = () => {
+    setShowCustomerForm(true);
+  };
+
+  const handleCustomerDetailsSubmit = async (details) => {
+    setCustomerDetails(details);
+
     const purchaseDetails = {
       items: cartItems,
       totalAmount: calculateTotal(),
-      purchaseDate: new Date().toISOString()
+      purchaseDate: new Date().toISOString(),
+      customer: details
     };
-    const docRef = await registerPurchase(purchaseDetails);
 
-    toast({
-      title: "Compra realizada con éxito",
-      description: `Tu compra ha sido procesada correctamente. Compra registrada con el ID: ${docRef.id}`,
-      position: "top",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
-
-    setCart([]);
-    setCartItems([]);
-    navigate("/");
+    try {
+      const docRef = await registerPurchase(purchaseDetails);
+      const productList = cartItems.map(item => `- ${item.name} (${item.quantity}x)`);
+      toast({
+        title: "¡Compra realizada con éxito!",
+        description: (
+          <VStack align="start">
+            <Text>Tu compra ha sido procesada correctamente.</Text>
+            <Text>Productos:</Text>
+            <Text>{productList}</Text>
+            <Text>Total: ${calculateTotal()}</Text>
+            <Text>ID de compra: {docRef.id}</Text>
+          </VStack>
+        ),
+        position: "top",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      setCart([]);
+      setCartItems([]);
+      navigate("/");
+    } catch (error) {
+      toast({
+        title: "Error al realizar la compra",
+        description: "Hubo un problema al procesar tu compra. Por favor, intenta nuevamente.",
+        position: "top",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   const handleBackToHome = () => {
     navigate("/");
   };
 
+ 
   return (
     <div data-aos="zoom-in-right">
       <Container maxW="container.xl" py="8">
@@ -121,11 +151,10 @@ const CartPage = () => {
 
         {cartItems.length > 0 ? (
           <>
-            <Grid templateColumns="repeat(3, 1fr)" templateRows="1fr" gap={4} mt="8">
+            <Grid templateColumns="repeat(3, 1fr)" templateRows="1fr" gap={4} mt="10">
               <GridItem colSpan={2} rowSpan={1}>
                 <VStack divider={<StackDivider borderColor="gray.200" />} spacing={4} align="stretch">
                   {cartItems.map((item) => {
-                    console.log(item.image); // Asegúrate de que la imagen es correcta
                     return (
                       <Box
                         key={item.id}
@@ -138,7 +167,7 @@ const CartPage = () => {
                       >
                         <Grid templateColumns="repeat(20, 1fr)" gap={1} alignItems="center">
                           <GridItem colSpan={[12, 8]}>
-                            <Image src={item.image} alt={item.name} boxSize="300px" objectFit="contain" style={{ borderRadius: "25%" }} />
+                            <Image src={"/foto.jpg"} alt={item.name} boxSize="300px" objectFit="contain" style={{ borderRadius: "25%" }} />
                           </GridItem>
                           <GridItem colSpan={[12, 4]}>
                             <Text fontSize="2xl" fontWeight="bold">{item.name}</Text>
@@ -194,6 +223,16 @@ const CartPage = () => {
                 </Box>
               </GridItem>
             </Grid>
+
+            {showCustomerForm && (
+              <>
+                <Heading mt="8" color="white" as="h2" size="lg" mb="8" textAlign="center">
+                  Ingresa tus datos para confirmar tu compra
+                </Heading>
+                <CustomerDetailsForm onSubmit={handleCustomerDetailsSubmit} />
+              </>
+            )}
+
             <AlertDialog
               isOpen={isOpen}
               leastDestructiveRef={cancelRef}

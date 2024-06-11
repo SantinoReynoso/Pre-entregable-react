@@ -1,35 +1,47 @@
+// Productos.jsx
 import React, { useContext, useState, useEffect } from 'react';
 import { Container, Heading, Box, Flex, Text } from '@chakra-ui/react';
-import ItemList from '../components/ItemListContainer/ItemList';
+import ItemListContainer from '../components/ItemListContainer/ItemListContainer';
 import FiltroProductos from '../components/ui/filtroProductos';
 import productsData from '../data/productsData';
-import NavBar from "../components/NavBar/NavBar";
-import ItemDetailPage from "../components/ItemDetailContainer/ItemDetail";
+import NavBar from '../components/NavBar/NavBar';
+import ItemDetailPage from '../components/ItemDetailContainer/ItemDetail';
 import Footer from '../components/Footer/Foote';
 import Titulo from '../components/ui/Titulo';
 import { CartContext } from '../contex/CartContext';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Productos = () => {
   const { cart, setCart } = useContext(CartContext);
   const [cartItemCount, setCartItemCount] = useState(0);
   const [filteredProducts, setFilteredProducts] = useState(productsData);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    AOS.init();
+  }, []);
 
   useEffect(() => {
     setCartItemCount(cart.reduce((count, item) => count + item.quantity, 0));
   }, [cart]);
 
-  const handleFilter = (category) => {
-    if (category === 'Todos') {
+  const handleFilter = (filter) => {
+    if (filter === 'Todos') {
       setFilteredProducts(productsData);
+      navigate(`/sector/todos`);
     } else {
-      const filtered = productsData.filter(product => product.sector === category);
+      const lowerCaseFilter = filter.toLowerCase();
+      const filtered = productsData.filter(product => product.sector.toLowerCase() === lowerCaseFilter);
       setFilteredProducts(filtered);
+      navigate(`/sector/${lowerCaseFilter}`);
     }
   };
 
   const handleViewDetails = (product) => {
-    setSelectedProduct(product);
+    navigate(`/productos/${product.id}`);
   };
 
   const handleBackToProducts = () => {
@@ -75,7 +87,7 @@ const Productos = () => {
               </Heading>
               <FiltroProductos handleFilter={handleFilter} />
               <div data-aos="zoom-in">
-                <ItemList products={filteredProducts} handleViewDetails={handleViewDetails} />
+              <ItemListContainer products={filteredProducts} handleViewDetails={handleViewDetails} />
               </div>
             </Box>
             <Box bg="#594747" py="12" borderRadius="xl" boxShadow="md" textAlign="center">

@@ -1,4 +1,3 @@
-// Home.jsx
 import React, { useState, useContext, useEffect } from 'react';
 import { Container, Heading, Box, Flex } from '@chakra-ui/react';
 import NavBar from '../components/NavBar/NavBar';
@@ -10,12 +9,12 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ItemListContainer from '../components/ItemListContainer/ItemListContainer';
 import FiltroProductos from '../components/ui/filtroProductos';
+import productsData from '../data/productsData.json';
 
 const Home = () => {
   const { cart } = useContext(CartContext);
   const [cartItemCount, setCartItemCount] = useState(0);
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(productsData);
   const navigate = useNavigate();
   const { sector } = useParams();
 
@@ -27,15 +26,28 @@ const Home = () => {
     setCartItemCount(cart.reduce((count, item) => count + item.quantity, 0));
   }, [cart]);
 
-
+  useEffect(() => {
+    if (sector) {
+      handleFilter(sector);
+    } else {
+      setFilteredProducts(productsData);
+    }
+  }, [sector]);
 
   const handleViewDetails = (product) => {
     navigate(`/productos/${product.id}`);
   };
 
   const handleFilter = (filter) => {
-    const lowerCaseFilter = filter.toLowerCase();
-    navigate(`/sector/${lowerCaseFilter}`);
+    if (filter === 'Todos') {
+      setFilteredProducts(productsData);
+      navigate(`/sector/todos`);
+    } else {
+      const lowerCaseFilter = filter.toLowerCase();
+      const filtered = productsData.filter(product => product.sector.toLowerCase() === lowerCaseFilter);
+      setFilteredProducts(filtered);
+      navigate(`/sector/${lowerCaseFilter}`);
+    }
   };
 
   return (

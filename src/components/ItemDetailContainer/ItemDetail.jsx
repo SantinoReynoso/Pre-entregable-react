@@ -90,7 +90,7 @@ const ItemDetail = () => {
   return (
     <>
       <NavBar />
-      <Container bg="#594747" p="12" borderRadius="xl" boxShadow="md" maxW="container.xl">
+      <Container bg="#f7f7f7" p="12" borderRadius="xl" boxShadow="md" maxW="container.xl">
         <div data-aos="zoom-in-down">
           <Box bg="white" p="8" borderRadius="xl" boxShadow="lg">
             <Heading as="h1" size="xl" color="gray.800" mb="5">
@@ -135,10 +135,16 @@ const ItemDetail = () => {
             <Divider mb="4" />
           </Box>
         </div>
-        <Box mt="8" bg="#594747" p="8">
-          <Heading bg="white" p="8" borderRadius="xl" boxShadow="lg" as="h2" size="lg" mb="5">Productos Relacionados</Heading>
-          <SimpleGrid columns={[1, 2, 3]} gap="30">
-            {/* Aquí podrías mapear productos relacionados */}
+        <Box mt="8" bg="white" p="8" borderRadius="xl" boxShadow="lg">
+          <Heading as="h2" size="lg" mb="5">Productos Relacionados</Heading>
+          <SimpleGrid columns={[1, 2, 3]} spacing="8">
+            {relatedProducts.map((relatedProduct) => (
+              <Box key={relatedProduct.id} p="4" borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="md">
+                <Image src={relatedProduct.image} alt={relatedProduct.name} boxSize="150px" objectFit="cover" mb="4" />
+                <Text fontSize="lg" fontWeight="bold">{relatedProduct.name}</Text>
+                <Text fontSize="md" color="gray.500">${relatedProduct.price}</Text>
+              </Box>
+            ))}
           </SimpleGrid>
         </Box>
       </Container>

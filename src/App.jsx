@@ -1,7 +1,7 @@
 // App.jsx
 import React from 'react';
 import { ChakraProvider, Box, Container, Heading, Text } from '@chakra-ui/react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate  } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/home';
 import CartPage from './pages/cartpage';
@@ -30,6 +30,7 @@ const App = () => {
                 <Route path="/productos/:productId" element={<ItemDetail />} />
                 <Route path="/cartpage" element={<CartPage />} />
                 <Route path="/sector/:sector" element={<Home />} />
+                <Route path="*" element={<Navigate to="/" />} /> {/* Cambia Redirect por Navigate */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Container>
