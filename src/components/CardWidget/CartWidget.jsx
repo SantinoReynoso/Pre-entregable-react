@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { IconButton, Badge, Flex } from '@chakra-ui/react';
 import { FaShoppingCart } from 'react-icons/fa';
-import { CartContext } from '../contex/CartContext';
+import { CartContext } from '../../contex/CartContext';
 
 const CartWidget = () => {
   const { cart } = useContext(CartContext);
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <Flex align="center" px={5}>
       <IconButton
@@ -15,9 +17,11 @@ const CartWidget = () => {
         cursor="pointer"
         size="lg"
       />
-      <Badge colorScheme="blue" borderRadius="full" px="7" ml="5" fontSize="lg">
-      {cart.length}
-      </Badge>
+      {totalItems > 0 && (
+        <Badge colorScheme="blue" borderRadius="full" px="7" ml="5" fontSize="lg">
+          {totalItems}
+        </Badge>
+      )}
     </Flex>
   );
 };

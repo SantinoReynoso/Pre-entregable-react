@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Flex, Image, Text } from '@chakra-ui/react';
 import lalentejaImage from "../../assets/lalenteja.jpg";
 import CartWidget from '../CardWidget/CartWidget';
+import { CartContext } from '../../contex/CartContext';
 
 const NavBar = () => {
+  const { cart } = useContext(CartContext);
+  const cartItemCount = cart.reduce((count, item) => count + item.quantity, 0);
+
   return (
     <Container maxW="container.xl" py="4">
       <Flex alignItems="center">
@@ -21,10 +25,9 @@ const NavBar = () => {
         <Text fontSize="lg" color="white" cursor="not-allowed">Iniciar Sesión</Text>
       </Flex>
       <Flex justify="flex-end">
-        <Link to="/Cartpage" style={{ textDecoration: 'none' }}>
-          <CartWidget/>
+        <Link to="/cartpage" style={{ textDecoration: 'none' }}>
+          <CartWidget itemCount={cartItemCount} />
         </Link>
-
       </Flex>
     </Container>
   );

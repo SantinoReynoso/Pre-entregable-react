@@ -1,30 +1,23 @@
-import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import productsData from '../../data/productsData.json';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import productsData from '../../data/productsData';
 import ItemDetail from './ItemDetail';
 
 const ItemDetailContainer = () => {
   const { productId } = useParams();
-  const navigate = useNavigate();
-  const product = productsData.find(p => p.id === parseInt(productId));
+  const [product, setProduct] = useState(null);
 
-  const handleAddToCart = (quantity) => {
-    console.log(`Added ${quantity} of ${product.name} to cart`);
-  };
+  useEffect(() => {
+    const foundProduct = productsData.find((product) => product.id === parseInt(productId, 10));
+    setProduct(foundProduct);
+  }, [productId]);
 
-  const handleBack = () => {
-    navigate('/productos');
-  };
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
-  return (
-    <div>
-      {product ? (
-        <ItemDetail product={product} onBack={handleBack} handleAddToCart={handleAddToCart} />
-      ) : (
-        <p>Producto no encontrado</p>
-      )}
-    </div>
-  );
+  return <ItemDetail product={product} />;
 };
 
 export default ItemDetailContainer;
+

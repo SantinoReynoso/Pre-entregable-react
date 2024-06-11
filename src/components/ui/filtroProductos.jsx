@@ -1,5 +1,6 @@
+// FiltroProductos.jsx
 import React, { useState } from 'react';
-import { Button } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react';
 
 const FiltroProductos = ({ handleFilter }) => {
   const [selectedFilter, setSelectedFilter] = useState('Todos');
@@ -11,7 +12,6 @@ const FiltroProductos = ({ handleFilter }) => {
 
   return (
     <div style={{ textAlign: 'center', padding: '10px'}}>
-      {/* Botones de filtro */}
       <Button 
         variant={selectedFilter === 'Todos' ? 'primary' : 'outline-secondary'} 
         style={{ marginRight: '10px', backgroundColor: selectedFilter === 'Todos' ? 'white' : 'transparent'}}
@@ -45,4 +45,3 @@ const FiltroProductos = ({ handleFilter }) => {
 };
 
 export default FiltroProductos;
-

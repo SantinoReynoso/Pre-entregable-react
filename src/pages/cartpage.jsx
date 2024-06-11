@@ -8,7 +8,6 @@ import {
   Text, 
   Grid, 
   GridItem, 
-  IconButton, 
   Image, 
   useToast, 
   useDisclosure,
@@ -21,13 +20,13 @@ import {
   StackDivider,
   VStack
 } from '@chakra-ui/react'; 
-import { CartContext } from '../components/contex/CartContext';
-import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+import { CartContext } from '../contex/CartContext';
 import NavBar from "../components/NavBar/NavBar";
 import { useNavigate  } from "react-router-dom";
 import registerPurchase from '../firebase/db';
+import ItemCount from '../components/ItemListContainer/ItemCount';
 
-const CartPage = ({ onBack }) => {
+const CartPage = () => {
   const { cart, setCart } = useContext(CartContext);
   const [cartItems, setCartItems] = useState(cart);
   const toast = useToast();
@@ -85,7 +84,7 @@ const CartPage = ({ onBack }) => {
     setCartItems(updatedCart);
     setCart(updatedCart); 
   };
-// funcion  para confirmar la compra y conectar con firebaes
+
   const handleConfirmPurchase = async () => {
     const purchaseDetails = {
       items: cartItems,
@@ -124,64 +123,53 @@ const CartPage = ({ onBack }) => {
           <>
             <Grid templateColumns="repeat(3, 1fr)" templateRows="1fr" gap={4} mt="8">
               <GridItem colSpan={2} rowSpan={1}>
-                {/* Contenido de la primera columna */}
                 <VStack divider={<StackDivider borderColor="gray.200" />} spacing={4} align="stretch">
-                  {cartItems.map((item) => (
-                    <Box
-                      key={item.id}
-                      bg="white"
-                      p="5"
-                      borderRadius="md"
-                      boxShadow="md"
-                      _hover={{ boxShadow: "lg" }}
-                      w="full"
-                    >
-                      <Grid templateColumns="repeat(20, 1fr)" gap={1} alignItems="center">
-                        <GridItem colSpan={[12, 8]}>
-                          <Image src={item.image} alt={item.name} boxSize="235px" objectFit="cover" style={{ borderRadius: "10%" }} />
-                        </GridItem>
-                        <GridItem colSpan={[12, 4]}>
-                          <Text fontSize="2xl" fontWeight="bold">{item.name}</Text>
-                          <Flex alignItems="center" mt={2}>
-                            <IconButton
-                              icon={<MinusIcon />}
-                              size="sm"
-                              onClick={() => handleDecrementQuantity(item)}
-                              mr="2"
-                              aria-label="Disminuir cantidad"
+                  {cartItems.map((item) => {
+                    console.log(item.image); // Asegúrate de que la imagen es correcta
+                    return (
+                      <Box
+                        key={item.id}
+                        bg="white"
+                        p="5"
+                        borderRadius="md"
+                        boxShadow="md"
+                        _hover={{ boxShadow: "lg" }}
+                        w="full"
+                      >
+                        <Grid templateColumns="repeat(20, 1fr)" gap={1} alignItems="center">
+                          <GridItem colSpan={[12, 8]}>
+                            <Image src={item.image} alt={item.name} boxSize="300px" objectFit="contain" style={{ borderRadius: "25%" }} />
+                          </GridItem>
+                          <GridItem colSpan={[12, 4]}>
+                            <Text fontSize="2xl" fontWeight="bold">{item.name}</Text>
+                            <ItemCount 
+                              quantity={item.quantity}
+                              incrementQuantity={() => handleIncrementQuantity(item)}
+                              decrementQuantity={() => handleDecrementQuantity(item)}
                             />
-                            <Text fontSize="xl" mx={2}>{item.quantity}</Text>
-                            <IconButton
-                              icon={<AddIcon />}
+                          </GridItem>
+                          <GridItem colSpan={[12, 4]} textAlign={["left", "right"]}>
+                            <Text fontWeight="bold" fontSize="1.3rem">Precio por unidad: ${item.price}</Text>
+                            <Button
+                              borderColor="red"
+                              boxShadow="lg"
+                              color="red"
+                              colorScheme="white"
                               size="sm"
-                              onClick={() => handleIncrementQuantity(item)}
-                              ml="2"
-                              aria-label="Aumentar cantidad"
-                            />
-                          </Flex>
-                        </GridItem>
-                        <GridItem colSpan={[12, 4]} textAlign={["left", "right"]}>
-                          <Text fontWeight="bold" fontSize="1.3rem">Precio por unidad: ${item.price}</Text>
-                          <Button
-                            borderColor="red"
-                            boxShadow="lg"
-                            color="red"
-                            colorScheme="white"
-                            size="sm"
-                            onClick={() => handleRemoveFromCart(item)}
-                            mt={2}
-                            _hover={{ color: "white", bg: "red" }}
-                          >
-                            Eliminar
-                          </Button>
-                        </GridItem>
-                      </Grid>
-                    </Box>
-                  ))}
+                              onClick={() => handleRemoveFromCart(item)}
+                              mt={2}
+                              _hover={{ color: "white", bg: "red" }}
+                            >
+                              Eliminar
+                            </Button>
+                          </GridItem>
+                        </Grid>
+                      </Box>
+                    );
+                  })}
                 </VStack>
               </GridItem>
               <GridItem colSpan={1} rowSpan={1}>
-                {/* Contenido de la segunda columna */}
                 <Box bg="white" p="4" borderRadius="md" boxShadow="md">
                   <Flex boxShadow="md" justifyContent="space-between" alignItems="center">
                     <Text fontSize="lg" fontWeight="bold">Total:</Text>

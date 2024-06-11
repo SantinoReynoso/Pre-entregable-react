@@ -1,87 +1,58 @@
-//home.jsx
+// Home.jsx
 import React, { useState, useContext, useEffect } from 'react';
 import { Container, Heading, Box, Flex } from '@chakra-ui/react';
-import ItemList from '../components/ui/ItemList';
-import FiltroProductos from '../components/ui/filtroProductos';
-import productsData from '../data/productsData';
 import NavBar from '../components/NavBar/NavBar';
-import ItemDetailPage from '../components/ItemDetailContainer/ItemDetail';
 import Footer from '../components/Footer/Foote';
 import Titulo from '../components/ui/Titulo';
-import { CartContext } from '../components/contex/CartContext';
-import { useParams } from 'react-router-dom';
+import { CartContext } from '../contex/CartContext';
+import { useNavigate, useParams } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
+import ItemListContainer from '../components/ItemListContainer/ItemListContainer';
+import FiltroProductos from '../components/ui/filtroProductos';
 
 const Home = () => {
-  const { cart, setCart } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
   const [cartItemCount, setCartItemCount] = useState(0);
-  const [filteredProducts, setFilteredProducts] = useState(productsData);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const { id } = useParams();
-  AOS.init();
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const navigate = useNavigate();
+  const { sector } = useParams();
+
+  useEffect(() => {
+    AOS.init();
+  }, []);
 
   useEffect(() => {
     setCartItemCount(cart.reduce((count, item) => count + item.quantity, 0));
   }, [cart]);
 
-  const handleFilter = (category) => {
-    if (category === 'Todos') {
-      setFilteredProducts(productsData);
-    } else {
-      const filteredProducts = productsData.filter(product => product.sector === category);
-      setFilteredProducts(filteredProducts);
-    }
-  };
+
 
   const handleViewDetails = (product) => {
-    setSelectedProduct(product);
+    navigate(`/productos/${product.id}`);
   };
 
-  const handleBackToHome = () => {
-    setSelectedProduct(null);
-  };
-
-  const addToCart = (product, quantity) => {
-    const existingProductIndex = cart.findIndex(item => item.id === product.id);
-    if (existingProductIndex !== -1) {
-      const updatedCart = [...cart];
-      updatedCart[existingProductIndex].quantity += quantity;
-      setCart(updatedCart);
-    } else {
-      setCart([...cart, { ...product, quantity }]);
-    }
+  const handleFilter = (filter) => {
+    const lowerCaseFilter = filter.toLowerCase();
+    navigate(`/sector/${lowerCaseFilter}`);
   };
 
   return (
     <>
       <NavBar cartItemCount={cartItemCount} />
       <Container maxW="container.xl">
-        {selectedProduct ? (
-          <ItemDetailPage
-            product={selectedProduct}
-            onBack={handleBackToHome}
-            handleAddToCart={(quantity) => addToCart(selectedProduct, quantity)}
-          />
-        ) : (
-          <>
-            <Flex justifyContent="space-between" alignItems="center" mb="4">
-            <Titulo/>
-            </Flex>
-            <Box bg="#594747" p="12" borderRadius="xl" boxShadow="2xl" mb="8">
-              <Heading as="h2" size="xl" color="white" mb="4" textAlign="center">
-                Nuestros Productos
-              </Heading>
-              <FiltroProductos handleFilter={handleFilter} />
-              <ItemList
-                products={filteredProducts}
-                handleViewDetails={handleViewDetails}
-              />
-            </Box>
-            <Footer />
-          </>
-        )}
+        <Flex justifyContent="space-between" alignItems="center" mb="4">
+          <Titulo />
+        </Flex>
+        <Box bg="#594747" p="12" borderRadius="xl" boxShadow="2xl" mb="8">
+          <Heading as="h2" size="xl" color="white" mb="4" textAlign="center" letterSpacing="wide">
+            Nuestros Productos
+          </Heading>
+          <FiltroProductos handleFilter={handleFilter} />
+          <ItemListContainer products={filteredProducts} handleViewDetails={handleViewDetails} />
+        </Box>
+        <Footer />
       </Container>
     </>
   );

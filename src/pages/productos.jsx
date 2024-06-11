@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Container, Heading, Box, Flex, Text } from '@chakra-ui/react';
-import ItemList from '../components/ui/ItemList';
-import ProductList from '../components/ui/ItemList';
+import ItemList from '../components/ItemListContainer/ItemList';
 import FiltroProductos from '../components/ui/filtroProductos';
 import productsData from '../data/productsData';
 import NavBar from "../components/NavBar/NavBar";
 import ItemDetailPage from "../components/ItemDetailContainer/ItemDetail";
-import { CartContext } from '../components/contex/CartContext';
-
+import Footer from '../components/Footer/Foote';
+import Titulo from '../components/ui/Titulo';
+import { CartContext } from '../contex/CartContext';
 
 const Productos = () => {
   const { cart, setCart } = useContext(CartContext);
@@ -15,12 +15,16 @@ const Productos = () => {
   const [filteredProducts, setFilteredProducts] = useState(productsData);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  useEffect(() => {
+    setCartItemCount(cart.reduce((count, item) => count + item.quantity, 0));
+  }, [cart]);
+
   const handleFilter = (category) => {
     if (category === 'Todos') {
       setFilteredProducts(productsData);
     } else {
-      const filteredProducts = productsData.filter(product => product.sector === category);
-      setFilteredProducts(filteredProducts);
+      const filtered = productsData.filter(product => product.sector === category);
+      setFilteredProducts(filtered);
     }
   };
 
@@ -58,25 +62,27 @@ const Productos = () => {
             onBack={handleBackToProducts}
             handleAddToCart={(quantity) => {
               addToCart(selectedProduct, quantity);
-              setCart([...cart, { ...selectedProduct, quantity }]);
             }}
           />
         ) : (
           <>
             <Flex justifyContent="space-between" alignItems="center" mb="4">
+              <Titulo />
             </Flex>
-            <Box bg="#594747" py="8" borderRadius="xl" boxShadow="2xl" mb="8">
+            <Box bg="#594747" py="12" borderRadius="xl" boxShadow="2xl" mb="8">
               <Heading as="h2" size="xl" color="white" mb="5" textAlign="center" letterSpacing="wide">
                 Nuestros Productos
               </Heading>
               <FiltroProductos handleFilter={handleFilter} />
               <div data-aos="zoom-in">
-                <ItemList products={filteredProducts} handleViewDetails={handleViewDetails} /></div>
+                <ItemList products={filteredProducts} handleViewDetails={handleViewDetails} />
+              </div>
             </Box>
             <Box bg="#594747" py="12" borderRadius="xl" boxShadow="md" textAlign="center">
               <Heading as="h2" size="lg" color="white" mb="4">¡Contáctanos!</Heading>
               <Text color="white" mb="4">Estamos aquí para ayudarte. ¡No dudes en ponerte en contacto con nosotros!</Text>
             </Box>
+            <Footer />
           </>
         )}
       </Container>
